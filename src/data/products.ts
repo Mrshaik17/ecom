@@ -1,0 +1,91 @@
+import { Product } from '@/components/ProductCard';
+import demoWatch1 from '@/assets/demo-watch-1.jpg';
+import demoShoes1 from '@/assets/demo-shoes-1.jpg';
+import demoClothing1 from '@/assets/demo-clothing-1.jpg';
+import demoGadgets1 from '@/assets/demo-gadgets-1.jpg';
+
+export const demoProducts: Product[] = [
+  {
+    id: '1',
+    name: 'Premium Smart Watch Pro',
+    price: 299.99,
+    originalPrice: 399.99,
+    image: demoWatch1,
+    category: 'watches',
+    description: 'High-end smartwatch with advanced health tracking, GPS, and premium materials. Perfect for the modern professional.',
+    rating: 4.8,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+  },
+  {
+    id: '2',
+    name: 'Executive Leather Shoes',
+    price: 189.99,
+    originalPrice: 249.99,
+    image: demoShoes1,
+    category: 'shoes',
+    description: 'Handcrafted genuine leather dress shoes. Elegant design meets comfort for business and formal occasions.',
+    rating: 4.6,
+    inStock: true,
+    isNew: false,
+    isSale: true,
+  },
+  {
+    id: '3',
+    name: 'Premium Casual Shirt',
+    price: 79.99,
+    image: demoClothing1,
+    category: 'clothing',
+    description: 'Premium quality cotton shirt with modern fit. Versatile for both casual and semi-formal wear.',
+    rating: 4.5,
+    inStock: true,
+    isNew: true,
+    isSale: false,
+  },
+  {
+    id: '4',
+    name: 'Wireless Pro Earbuds',
+    price: 159.99,
+    originalPrice: 199.99,
+    image: demoGadgets1,
+    category: 'gadgets',
+    description: 'Premium wireless earbuds with active noise cancellation and superior sound quality.',
+    rating: 4.7,
+    inStock: true,
+    isNew: false,
+    isSale: true,
+  },
+  {
+    id: '5',
+    name: 'Luxury Chronograph Watch',
+    price: 599.99,
+    image: demoWatch1,
+    category: 'premium',
+    description: 'Exclusive chronograph timepiece with sapphire crystal and Swiss movement. Limited edition.',
+    rating: 5.0,
+    inStock: true,
+    isNew: true,
+    isSale: false,
+  },
+  {
+    id: '6',
+    name: 'Designer Sneakers',
+    price: 229.99,
+    image: demoShoes1,
+    category: 'shoes',
+    description: 'Limited edition designer sneakers combining style and comfort with premium materials.',
+    rating: 4.4,
+    inStock: false,
+    isNew: false,
+    isSale: false,
+  },
+];
+
+export const categories = [
+  { id: 'watches', name: 'Watches', description: 'Premium timepieces and smartwatches' },
+  { id: 'shoes', name: 'Shoes', description: 'Quality footwear for every occasion' },
+  { id: 'clothing', name: 'Clothing', description: 'Stylish apparel for the modern man' },
+  { id: 'gadgets', name: 'Gadgets', description: 'Latest tech and electronic accessories' },
+  { id: 'premium', name: 'Premium', description: 'Exclusive luxury collections' },
+];
