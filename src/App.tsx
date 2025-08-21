@@ -10,6 +10,9 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
+import Categories from "./pages/Categories";
+import CategoryPage from "./pages/CategoryPage";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,8 +26,8 @@ const App = () => (
         <BrowserRouter>
           <div className="min-h-screen flex flex-col">
             <Routes>
-              {/* Admin Route (hidden, no header/footer) */}
-              <Route path="/admin-panel-techfusion" element={<Admin />} />
+              {/* Admin Route */}
+              <Route path="/admin" element={<Admin />} />
               
               {/* Main Store Routes */}
               <Route path="/*" element={
@@ -34,9 +37,9 @@ const App = () => (
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/cart" element={<Cart />} />
-                      <Route path="/categories" element={<Index />} />
-                      <Route path="/category/:categoryId" element={<Index />} />
-                      <Route path="/contact" element={<Index />} />
+                      <Route path="/categories" element={<Categories />} />
+                      <Route path="/category/:categoryId" element={<CategoryPage />} />
+                      <Route path="/contact" element={<Contact />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </main>
