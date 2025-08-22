@@ -4,14 +4,15 @@ import { ArrowLeft, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/ProductCard';
 import { useCart } from '@/context/CartContext';
-import { demoProducts, categories } from '@/data/products';
+import { useProducts } from '@/context/ProductContext';
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
   const { addItem } = useCart();
-
-  const category = categories.find(c => c.id === categoryId);
-  const categoryProducts = demoProducts.filter(product => product.category === categoryId);
+  const { products, categories } = useProducts();
+  
+  const category = categories.find(cat => cat.id === categoryId);
+  const categoryProducts = products.filter(product => product.category === categoryId);
 
   const handleAddToCart = (product: any) => {
     addItem(product);
@@ -132,7 +133,7 @@ const CategoryPage = () => {
                         {relatedCategory.name}
                       </h3>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {demoProducts.filter(p => p.category === relatedCategory.id).length} items
+                        {products.filter(p => p.category === relatedCategory.id).length} items
                       </p>
                     </div>
                   </Link>

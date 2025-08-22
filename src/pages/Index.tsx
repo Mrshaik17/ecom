@@ -5,15 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductCard from '@/components/ProductCard';
 import { useCart } from '@/context/CartContext';
-import { demoProducts, categories } from '@/data/products';
+import { useProducts } from '@/context/ProductContext';
 
 const Index = () => {
   const { addItem } = useCart();
+  const { products, categories } = useProducts();
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
-  const featuredProducts = demoProducts.filter(p => p.isFeatured);
-  const newArrivals = demoProducts.filter(p => p.isNew);
-  const premiumProducts = demoProducts.filter(p => p.category === 'premium');
+  const featuredProducts = products.filter(p => p.isFeatured);
+  const newArrivals = products.filter(p => p.isNew);
+  const premiumProducts = products.filter(p => p.category === 'premium');
 
   const handleAddToCart = (product: any) => {
     addItem(product);

@@ -5,15 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import ProductCard from '@/components/ProductCard';
 import { useCart } from '@/context/CartContext';
-import { demoProducts, categories } from '@/data/products';
+import { useProducts } from '@/context/ProductContext';
 
 const Categories = () => {
   const { addItem } = useCart();
+  const { products, categories } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const filteredProducts = selectedCategory === 'all' 
-    ? demoProducts 
-    : demoProducts.filter(product => product.category === selectedCategory);
+    ? products 
+    : products.filter(product => product.category === selectedCategory);
 
   const handleAddToCart = (product: any) => {
     addItem(product);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Plus, Edit, Trash2, Upload, Link as LinkIcon, Eye, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { categories } from '@/data/products';
+import { useProducts } from '@/context/ProductContext';
 
 interface Product {
   id: string;
@@ -26,11 +26,11 @@ interface Product {
 
 const Admin = () => {
   const { toast } = useToast();
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, categories, addProduct, removeProduct, addCategory } = useProducts();
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [newCategory, setNewCategory] = useState('');
-  const [customCategories, setCustomCategories] = useState<Array<{id: string, name: string, description: string}>>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [newProduct, setNewProduct] = useState({
     name: '',
@@ -44,6 +44,17 @@ const Admin = () => {
     isSale: false,
     isFeatured: false,
   });
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setNewProduct({ ...newProduct, image: event.target?.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleAddProduct = () => {
     if (!newProduct.name || !newProduct.price || !newProduct.category) {
@@ -69,7 +80,7 @@ const Admin = () => {
       isFeatured: newProduct.isFeatured,
     };
 
-    setProducts([...products, product]);
+    addProduct(product);
     setNewProduct({
       name: '',
       price: '',
@@ -99,7 +110,7 @@ const Admin = () => {
       description: `Custom ${newCategory} category`
     };
     
-    setCustomCategories([...customCategories, category]);
+    addCategory(category);
     setNewCategory('');
     setShowAddCategory(false);
     
@@ -110,14 +121,12 @@ const Admin = () => {
   };
 
   const handleDeleteProduct = (id: string) => {
-    setProducts(products.filter(p => p.id !== id));
+    removeProduct(id);
     toast({
       title: "Success",
       description: "Product deleted successfully!",
     });
   };
-
-  const allCategories = [...categories, ...customCategories];
 
   return (
     <div className="min-h-screen bg-secondary p-6">
@@ -157,7 +166,7 @@ const Admin = () => {
               <div className="flex items-center space-x-2">
                 <Badge className="h-8 w-8 bg-primary" />
                 <div>
-                  <p className="text-2xl font-bold">{allCategories.length}</p>
+                  <p className="text-2xl font-bold">{categories.length}</p>
                   <p className="text-sm text-muted-foreground">Categories</p>
                 </div>
               </div>
@@ -215,7 +224,7 @@ const Admin = () => {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      {allCategories.map((cat) => (
+                      {categories.map((cat) => (
                         <SelectItem key={cat.id} value={cat.id}>
                           {cat.name}
                         </SelectItem>
@@ -248,20 +257,48 @@ const Admin = () => {
               </div>
               
               <div>
-                <Label htmlFor="image">Product Image URL</Label>
-                <div className="flex space-x-2">
+                <Label htmlFor="image">Product Image</Label>
+                <div className="space-y-2">
                   <Input
                     id="image"
                     value={newProduct.image}
                     onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
-                    placeholder="https://example.com/image.jpg or upload file"
+                    placeholder="https://example.com/image.jpg"
                   />
-                  <Button variant="outline" size="icon">
-                    <Upload className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <LinkIcon className="h-4 w-4" />
-                  </Button>
+                  <div className="flex space-x-2">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileUpload}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                    <Button 
+                      type="button"
+                      variant="outline" 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="flex-1"
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      Select from Device
+                    </Button>
+                    <Button variant="outline" className="flex-1">
+                      <LinkIcon className="h-4 w-4 mr-2" />
+                      Use URL
+                    </Button>
+                  </div>
+                  {newProduct.image && (
+                    <div className="mt-2">
+                      <img 
+                        src={newProduct.image} 
+                        alt="Preview" 
+                        className="w-20 h-20 object-cover rounded border"
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder.svg';
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 

@@ -4,20 +4,21 @@ import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/context/CartContext';
+import { useProducts } from '@/context/ProductContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { itemCount } = useCart();
+  const { categories } = useProducts();
   const location = window.location;
 
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Categories', href: '/categories' },
-    { name: 'Watches', href: '/category/watches' },
-    { name: 'Shoes', href: '/category/shoes' },
-    { name: 'Clothing', href: '/category/clothing' },
-    { name: 'Gadgets', href: '/category/gadgets' },
-    { name: 'Premium', href: '/category/premium' },
+    ...categories.map(category => ({
+      name: category.name,
+      href: `/category/${category.id}`
+    })),
     { name: 'Contact', href: '/contact' },
   ];
 
