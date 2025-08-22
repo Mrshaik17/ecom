@@ -16,6 +16,7 @@ export interface Product {
   inStock: boolean;
   isNew?: boolean;
   isSale?: boolean;
+  isFeatured?: boolean;
 }
 
 interface ProductCardProps {

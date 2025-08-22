@@ -21,6 +21,7 @@ interface Product {
   inStock: boolean;
   isNew: boolean;
   isSale: boolean;
+  isFeatured: boolean;
 }
 
 const Admin = () => {
@@ -41,6 +42,7 @@ const Admin = () => {
     inStock: true,
     isNew: false,
     isSale: false,
+    isFeatured: false,
   });
 
   const handleAddProduct = () => {
@@ -64,6 +66,7 @@ const Admin = () => {
       inStock: newProduct.inStock,
       isNew: newProduct.isNew,
       isSale: newProduct.isSale,
+      isFeatured: newProduct.isFeatured,
     };
 
     setProducts([...products, product]);
@@ -77,6 +80,7 @@ const Admin = () => {
       inStock: true,
       isNew: false,
       isSale: false,
+      isFeatured: false,
     });
     setShowAddProduct(false);
 
@@ -300,6 +304,15 @@ const Admin = () => {
                   />
                   <span className="text-sm">On Sale</span>
                 </label>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={newProduct.isFeatured}
+                    onChange={(e) => setNewProduct({ ...newProduct, isFeatured: e.target.checked })}
+                    className="rounded"
+                  />
+                  <span className="text-sm">Featured on Main Page</span>
+                </label>
               </div>
 
               <div className="flex space-x-4">
@@ -369,6 +382,7 @@ const Admin = () => {
                     <div className="flex space-x-2">
                       {product.isNew && <Badge>New</Badge>}
                       {product.isSale && <Badge variant="destructive">Sale</Badge>}
+                      {product.isFeatured && <Badge className="bg-primary">Featured</Badge>}
                       {!product.inStock && <Badge variant="secondary">Out of Stock</Badge>}
                     </div>
                     <div className="flex space-x-2">

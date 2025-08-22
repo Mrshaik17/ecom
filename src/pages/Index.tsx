@@ -11,8 +11,9 @@ const Index = () => {
   const { addItem } = useCart();
   const [quickViewProduct, setQuickViewProduct] = useState(null);
 
-  const featuredProducts = demoProducts.slice(0, 4);
+  const featuredProducts = demoProducts.filter(p => p.isFeatured);
   const newArrivals = demoProducts.filter(p => p.isNew);
+  const premiumProducts = demoProducts.filter(p => p.category === 'premium');
 
   const handleAddToCart = (product: any) => {
     addItem(product);
@@ -28,7 +29,7 @@ const Index = () => {
       <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
         <div className="container mx-auto px-4 py-20 lg:py-32">
           <div className="max-w-3xl">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-6xl font-display font-bold mb-6 leading-tight">
               Premium Import
               <span className="block text-primary-light">Collection</span>
             </h1>
@@ -154,7 +155,7 @@ const Index = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">New Arrivals</h2>
+              <h2 className="text-3xl font-display font-bold mb-4">New Arrivals</h2>
               <p className="text-muted-foreground">Latest additions to our premium collection</p>
             </div>
             
@@ -172,10 +173,33 @@ const Index = () => {
         </section>
       )}
 
+      {/* Premium Collection */}
+      {premiumProducts.length > 0 && (
+        <section className="py-16 bg-secondary">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-display font-bold mb-4">Premium Collection</h2>
+              <p className="text-muted-foreground">Exclusive luxury items for the discerning gentleman</p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {premiumProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                  onQuickView={handleQuickView}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Newsletter Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
+        <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
+          <h2 className="text-3xl font-display font-bold mb-4">Stay Updated</h2>
           <p className="text-xl mb-8 text-primary-light/90">
             Get exclusive offers and be the first to know about new arrivals
           </p>

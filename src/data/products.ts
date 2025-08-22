@@ -17,6 +17,7 @@ export const demoProducts: Product[] = [
     inStock: true,
     isNew: true,
     isSale: true,
+    isFeatured: true,
   },
   {
     id: '2',
@@ -30,6 +31,7 @@ export const demoProducts: Product[] = [
     inStock: true,
     isNew: false,
     isSale: true,
+    isFeatured: false,
   },
   {
     id: '3',
@@ -42,6 +44,7 @@ export const demoProducts: Product[] = [
     inStock: true,
     isNew: true,
     isSale: false,
+    isFeatured: true,
   },
   {
     id: '4',
@@ -55,6 +58,7 @@ export const demoProducts: Product[] = [
     inStock: true,
     isNew: false,
     isSale: true,
+    isFeatured: false,
   },
   {
     id: '5',
@@ -67,6 +71,7 @@ export const demoProducts: Product[] = [
     inStock: true,
     isNew: true,
     isSale: false,
+    isFeatured: true,
   },
   {
     id: '6',
@@ -79,6 +84,7 @@ export const demoProducts: Product[] = [
     inStock: false,
     isNew: false,
     isSale: false,
+    isFeatured: false,
   },
 ];
 
