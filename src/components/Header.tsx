@@ -1,24 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
+import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/context/CartContext';
-import { useProducts } from '@/context/ProductContext';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { itemCount } = useCart();
-  const { categories } = useProducts();
   const location = window.location;
 
   const navigation = [
     { name: 'Home', href: '/' },
-    { name: 'Categories', href: '/categories' },
-    ...categories.map(category => ({
-      name: category.name,
-      href: `/category/${category.id}`
-    })),
+    { name: 'New Arrivals', href: '/new-arrivals' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -54,14 +48,6 @@ const Header = () => {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <Search className="h-5 w-5" />
-            </Button>
-            
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <User className="h-5 w-5" />
-            </Button>
-
             <Link to="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
