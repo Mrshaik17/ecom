@@ -26,19 +26,62 @@ const App = () => (
           {/* Admin Route */}
           <Route path="/admin" element={<Admin />} />
           
-          {/* Main Store Routes */}
-          <Route path="/*" element={
+          {/* Main Store Routes with Layout */}
+          <Route path="/" element={
             <>
               <Header />
               <main className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/categories" element={<Categories />} />
-                  <Route path="/category/:categoryId" element={<CategoryPage />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <Index />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/cart" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <Cart />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/categories" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <Categories />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/category/:categoryId" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <CategoryPage />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/contact" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <Contact />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="*" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <NotFound />
               </main>
               <Footer />
               <WhatsAppButton />
