@@ -23,9 +23,10 @@ interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
   onQuickView: (product: Product) => void;
+  onBuyNow?: (product: Product) => void;
 }
 
-const ProductCard = ({ product, onAddToCart, onQuickView }: ProductCardProps) => {
+const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -104,7 +105,7 @@ const ProductCard = ({ product, onAddToCart, onQuickView }: ProductCardProps) =>
             </Button>
             <Button
               className="flex-1 bg-secondary hover:bg-secondary/80"
-              onClick={() => onAddToCart(product)}
+              onClick={() => onBuyNow?.(product)}
               disabled={!product.inStock}
               size="sm"
             >

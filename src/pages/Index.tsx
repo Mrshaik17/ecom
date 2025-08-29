@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, TruckIcon, ShieldCheck, Headphones } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import ProductCard from '@/components/ProductCard';
+import ProductCard, { Product } from '@/components/ProductCard';
+import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
 import { useProducts } from '@/context/ProductContext';
 
@@ -11,6 +12,8 @@ const Index = () => {
   const { addItem } = useCart();
   const { products, categories } = useProducts();
   const [quickViewProduct, setQuickViewProduct] = useState(null);
+  const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
+  const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
 
   const featuredProducts = products.filter(p => p.isFeatured);
   const newArrivals = products.filter(p => p.isNew);
@@ -22,6 +25,16 @@ const Index = () => {
 
   const handleQuickView = (product: any) => {
     setQuickViewProduct(product);
+  };
+
+  const handleBuyNow = (product: Product) => {
+    setBuyNowProduct(product);
+    setIsBuyNowDialogOpen(true);
+  };
+
+  const handleCloseBuyNowDialog = () => {
+    setIsBuyNowDialogOpen(false);
+    setBuyNowProduct(null);
   };
 
   return (
@@ -145,6 +158,7 @@ const Index = () => {
                 product={product}
                 onAddToCart={handleAddToCart}
                 onQuickView={handleQuickView}
+                onBuyNow={handleBuyNow}
               />
             ))}
           </div>
@@ -162,12 +176,13 @@ const Index = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {newArrivals.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={handleAddToCart}
-                  onQuickView={handleQuickView}
-                />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={handleAddToCart}
+                onQuickView={handleQuickView}
+                onBuyNow={handleBuyNow}
+              />
               ))}
             </div>
           </div>
@@ -185,12 +200,13 @@ const Index = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {premiumProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={handleAddToCart}
-                  onQuickView={handleQuickView}
-                />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={handleAddToCart}
+                onQuickView={handleQuickView}
+                onBuyNow={handleBuyNow}
+              />
               ))}
             </div>
           </div>
@@ -216,6 +232,13 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Buy Now Dialog */}
+      <BuyNowDialog
+        isOpen={isBuyNowDialogOpen}
+        onClose={handleCloseBuyNowDialog}
+        product={buyNowProduct}
+      />
     </div>
   );
 };

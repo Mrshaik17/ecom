@@ -13,6 +13,7 @@ import Categories from "./pages/Categories";
 import CategoryPage from "./pages/CategoryPage";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import OrderSuccess from "./pages/OrderSuccess";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,18 @@ const App = () => (
         <Routes>
           {/* Admin Route */}
           <Route path="/admin" element={<Admin />} />
+          
+          {/* Order Success Route */}
+          <Route path="/order-success" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <OrderSuccess />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
           
           {/* Main Store Routes with Layout */}
           <Route path="/" element={

@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import ProductCard from '@/components/ProductCard';
+import ProductCard, { Product } from '@/components/ProductCard';
+import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
 import { useProducts } from '@/context/ProductContext';
 
 const Categories = () => {
   const { addItem } = useCart();
   const { products, categories } = useProducts();
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
+  const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
 
   const filteredProducts = selectedCategory === 'all' 
     ? products 
@@ -22,6 +25,16 @@ const Categories = () => {
 
   const handleQuickView = (product: any) => {
     // Quick view functionality can be added here
+  };
+
+  const handleBuyNow = (product: Product) => {
+    setBuyNowProduct(product);
+    setIsBuyNowDialogOpen(true);
+  };
+
+  const handleCloseBuyNowDialog = () => {
+    setIsBuyNowDialogOpen(false);
+    setBuyNowProduct(null);
   };
 
   return (
@@ -111,6 +124,7 @@ const Categories = () => {
                   product={product}
                   onAddToCart={handleAddToCart}
                   onQuickView={handleQuickView}
+                  onBuyNow={handleBuyNow}
                 />
               ))}
             </div>
@@ -131,6 +145,13 @@ const Categories = () => {
           )}
         </div>
       </section>
+      
+      {/* Buy Now Dialog */}
+      <BuyNowDialog
+        isOpen={isBuyNowDialogOpen}
+        onClose={handleCloseBuyNowDialog}
+        product={buyNowProduct}
+      />
     </div>
   );
 };
