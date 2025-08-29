@@ -90,16 +90,27 @@ const ProductCard = ({ product, onAddToCart, onQuickView }: ProductCardProps) =>
           )}
         </div>
 
-        {/* Quick Add to Cart - appears on hover */}
+        {/* Action Buttons - appears on hover */}
         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button
-            className="w-full bg-gradient-button hover:bg-primary-hover"
-            onClick={() => onAddToCart(product)}
-            disabled={!product.inStock}
-          >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              className="flex-1 bg-gradient-button hover:bg-primary-hover"
+              onClick={() => onAddToCart(product)}
+              disabled={!product.inStock}
+              size="sm"
+            >
+              <ShoppingCart className="h-4 w-4 mr-1" />
+              Add to Cart
+            </Button>
+            <Button
+              className="flex-1 bg-secondary hover:bg-secondary/80"
+              onClick={() => onAddToCart(product)}
+              disabled={!product.inStock}
+              size="sm"
+            >
+              Buy Now
+            </Button>
+          </div>
         </div>
       </div>
 
