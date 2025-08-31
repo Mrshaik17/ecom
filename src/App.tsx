@@ -14,6 +14,8 @@ import CategoryPage from "./pages/CategoryPage";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import OrderSuccess from "./pages/OrderSuccess";
+import Products from "./pages/Products";
+import NewArrivals from "./pages/NewArrivals";
 
 const queryClient = new QueryClient();
 
@@ -85,6 +87,26 @@ const App = () => (
               <Header />
               <main className="flex-1">
                 <Contact />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/products" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <Products />
+              </main>
+              <Footer />
+              <WhatsAppButton />
+            </>
+          } />
+          <Route path="/new-arrivals" element={
+            <>
+              <Header />
+              <main className="flex-1">
+                <NewArrivals />
               </main>
               <Footer />
               <WhatsAppButton />
