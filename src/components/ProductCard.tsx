@@ -91,26 +91,29 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
           )}
         </div>
 
-        {/* Action Buttons - appears on hover */}
-        <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex gap-2">
+        {/* Action Buttons - More Visible */}
+        <div className="absolute inset-x-3 bottom-3">
+          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <Button
-              className="flex-1 bg-gradient-button hover:bg-primary-hover"
+              className="flex-1 bg-gradient-button hover:bg-primary-hover text-sm"
               onClick={() => onAddToCart(product)}
               disabled={!product.inStock}
               size="sm"
             >
-              <ShoppingCart className="h-4 w-4 mr-1" />
-              Add to Cart
+              <ShoppingCart className="h-3 w-3 mr-1" />
+              Add
             </Button>
-            <Button
-              className="flex-1 bg-secondary hover:bg-secondary/80"
-              onClick={() => onBuyNow?.(product)}
-              disabled={!product.inStock}
-              size="sm"
-            >
-              Buy Now
-            </Button>
+            {onBuyNow && (
+              <Button
+                className="flex-1 bg-secondary hover:bg-secondary/80 text-sm text-foreground"
+                onClick={() => onBuyNow(product)}
+                disabled={!product.inStock}
+                size="sm"
+                variant="secondary"
+              >
+                Buy Now
+              </Button>
+            )}
           </div>
         </div>
       </div>

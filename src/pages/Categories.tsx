@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Package } from 'lucide-react';
+import { ArrowRight, Package, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 import ProductCard, { Product } from '@/components/ProductCard';
 import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
@@ -14,10 +22,52 @@ const Categories = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
   const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<string>('name');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState<string>('all');
 
-  const filteredProducts = selectedCategory === 'all' 
+  // Filter products based on category, search, and price range
+  let filteredProducts = selectedCategory === 'all' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
+    
+  // Apply search filter
+  if (searchQuery) {
+    filteredProducts = filteredProducts.filter(product =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+  
+  // Apply price range filter
+  if (priceRange !== 'all') {
+    filteredProducts = filteredProducts.filter(product => {
+      switch (priceRange) {
+        case 'under-50': return product.price < 50;
+        case '50-100': return product.price >= 50 && product.price <= 100;
+        case '100-200': return product.price >= 100 && product.price <= 200;
+        case 'over-200': return product.price > 200;
+        case 'offers': return product.isSale || (product.originalPrice && product.originalPrice > product.price);
+        default: return true;
+      }
+    });
+  }
+  
+  // Sort products
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'price-low-high': return a.price - b.price;
+      case 'price-high-low': return b.price - a.price;
+      case 'name': return a.name.localeCompare(b.name);
+      case 'newest': return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+      case 'rating': return (b.rating || 0) - (a.rating || 0);
+      case 'offers': 
+        const aHasOffer = a.isSale || (a.originalPrice && a.originalPrice > a.price);
+        const bHasOffer = b.isSale || (b.originalPrice && b.originalPrice > b.price);
+        return (bHasOffer ? 1 : 0) - (aHasOffer ? 1 : 0);
+      default: return 0;
+    }
+  });
 
   const handleAddToCart = (product: any) => {
     addItem(product);
@@ -106,19 +156,62 @@ const Categories = () => {
             ))}
           </div>
 
-          {/* Products Grid */}
+          {/* Search and Filter Controls */}
+          <div className="mb-8">
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+              <div className="flex-1 max-w-md">
+                <Input
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="flex gap-4">
+                <Select value={priceRange} onValueChange={setPriceRange}>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Filter by price" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Prices</SelectItem>
+                    <SelectItem value="under-50">Under $50</SelectItem>
+                    <SelectItem value="50-100">$50 - $100</SelectItem>
+                    <SelectItem value="100-200">$100 - $200</SelectItem>
+                    <SelectItem value="over-200">Over $200</SelectItem>
+                    <SelectItem value="offers">Special Offers</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="name">Name A-Z</SelectItem>
+                    <SelectItem value="price-low-high">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high-low">Price: High to Low</SelectItem>
+                    <SelectItem value="newest">Newest First</SelectItem>
+                    <SelectItem value="rating">Highest Rated</SelectItem>
+                    <SelectItem value="offers">Special Offers</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-6">
               {selectedCategory === 'all' 
-                ? `All Products (${filteredProducts.length})` 
-                : `${categories.find(c => c.id === selectedCategory)?.name} (${filteredProducts.length})`
+                ? `All Products (${sortedProducts.length})` 
+                : `${categories.find(c => c.id === selectedCategory)?.name} (${sortedProducts.length})`
               }
             </h2>
           </div>
 
-          {filteredProducts.length > 0 ? (
+          {sortedProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
+              {sortedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}

@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { Sparkles, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Star, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import ProductCard, { Product } from '@/components/ProductCard';
 import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
@@ -12,9 +20,22 @@ const NewArrivals = () => {
   const { products } = useProducts();
   const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
   const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<string>('newest');
 
-  // Filter products to show only new arrivals (you can modify this logic based on your needs)
-  const newArrivals = products.filter((product, index) => index < 8); // Show first 8 as new arrivals
+  // Filter products to show only new arrivals
+  const newArrivals = products.filter(product => product.isNew || Math.random() < 0.4); // Filter by isNew flag or show some as new
+
+  // Sort new arrivals
+  const sortedNewArrivals = [...newArrivals].sort((a, b) => {
+    switch (sortBy) {
+      case 'newest': return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+      case 'price-low-high': return a.price - b.price;
+      case 'price-high-low': return b.price - a.price;
+      case 'name': return a.name.localeCompare(b.name);
+      case 'rating': return (b.rating || 0) - (a.rating || 0);
+      default: return 0;
+    }
+  });
 
   const handleAddToCart = (product: any) => {
     addItem(product);
@@ -40,10 +61,6 @@ const NewArrivals = () => {
       <section className="bg-gradient-to-r from-primary/10 to-secondary/20 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-medium">Just Landed</span>
-            </div>
             <h1 className="text-4xl font-bold mb-4">New Arrivals</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Be the first to discover our latest premium imported products. Fresh styles, trending designs, and exclusive collections.
@@ -52,63 +69,54 @@ const NewArrivals = () => {
         </div>
       </section>
 
-      {/* New Arrivals Info */}
-      <section className="py-8 bg-card border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Badge variant="outline" className="text-primary border-primary">
-                <Clock className="h-3 w-3 mr-1" />
-                Latest Arrivals
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {newArrivals.length} new products this week
-              </span>
-            </div>
-            <Button variant="outline" size="sm">
-              Sort by: Newest First
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Products Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          {newArrivals.length > 0 ? (
-            <>
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold mb-2">Fresh Arrivals</h2>
-                <p className="text-muted-foreground">
-                  Get them before they're gone - limited quantities available
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {newArrivals.map((product) => (
-                  <div key={product.id} className="relative">
-                    <Badge 
-                      className="absolute top-2 left-2 z-10 bg-primary text-primary-foreground"
-                    >
-                      New
-                    </Badge>
-                    <ProductCard
-                      product={product}
-                      onAddToCart={handleAddToCart}
-                      onQuickView={handleQuickView}
-                      onBuyNow={handleBuyNow}
-                    />
-                  </div>
-                ))}
-              </div>
-            </>
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h2 className="text-3xl font-bold mb-2">New Arrivals</h2>
+              <p className="text-muted-foreground">Latest additions to our premium collection ({sortedNewArrivals.length} items)</p>
+            </div>
+            
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="newest">Newest First</SelectItem>
+                <SelectItem value="price-low-high">Price: Low to High</SelectItem>
+                <SelectItem value="price-high-low">Price: High to Low</SelectItem>
+                <SelectItem value="name">Name A-Z</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {sortedNewArrivals.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {sortedNewArrivals.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                  onQuickView={handleQuickView}
+                  onBuyNow={handleBuyNow}
+                />
+              ))}
+            </div>
           ) : (
             <div className="text-center py-16">
-              <Sparkles className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
+              <Package className="h-24 w-24 text-muted-foreground mx-auto mb-6" />
               <h3 className="text-xl font-semibold mb-4">No new arrivals yet</h3>
               <p className="text-muted-foreground mb-8">
                 Check back soon for the latest products and collections.
               </p>
-              <Button>Browse All Products</Button>
+              <Link to="/categories">
+                <Button className="bg-gradient-button">
+                  Browse All Products
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           )}
         </div>

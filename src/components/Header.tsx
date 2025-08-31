@@ -4,6 +4,7 @@ import { ShoppingCart, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/context/CartContext';
+import UserAccountDropdown from './UserAccountDropdown';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,6 +49,8 @@ const Header = () => {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-4">
+            <UserAccountDropdown />
+            
             <Link to="/cart">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
