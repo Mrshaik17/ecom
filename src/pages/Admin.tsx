@@ -32,10 +32,11 @@ interface Product {
 const Admin = () => {
   const { toast } = useToast();
   const { products, categories, addProduct, removeProduct, addCategory } = useProducts();
-  const { coupons, addCoupon } = useCoupon();
+  const { coupons, addCoupon, deleteCoupon, updateCoupon, toggleCouponStatus } = useCoupon();
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [showAddCoupon, setShowAddCoupon] = useState(false);
+  const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null);
   const [newCategory, setNewCategory] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -54,13 +55,24 @@ const Admin = () => {
     freeShippingThreshold: '',
   });
 
-  const [newCoupon, setNewCoupon] = useState({
+  const [newCoupon, setNewCoupon] = useState<{
+    code: string;
+    description: string;
+    type: 'percentage' | 'fixed' | 'bogo' | 'free_shipping';
+    value: string;
+    minOrderValue: string;
+    maxDiscount: string;
+    expiresAt: string;
+    usageLimit: string;
+  }>({
     code: '',
     description: '',
-    type: 'percentage' as const,
+    type: 'percentage',
     value: '',
     minOrderValue: '',
     maxDiscount: '',
+    expiresAt: '',
+    usageLimit: '',
   });
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +137,39 @@ const Admin = () => {
     });
   };
 
+  const handleEditCoupon = (coupon: Coupon) => {
+    setEditingCoupon(coupon);
+    setNewCoupon({
+      code: coupon.code,
+      description: coupon.description,
+      type: coupon.type,
+      value: coupon.value.toString(),
+      minOrderValue: coupon.minOrderValue?.toString() || '',
+      maxDiscount: coupon.maxDiscount?.toString() || '',
+      expiresAt: coupon.expiresAt ? coupon.expiresAt.toISOString().split('T')[0] : '',
+      usageLimit: coupon.usageLimit?.toString() || '',
+    });
+    setShowAddCoupon(true);
+  };
+
+  const handleDeleteCoupon = (couponId: string) => {
+    if (confirm('Are you sure you want to delete this coupon?')) {
+      deleteCoupon(couponId);
+      toast({
+        title: "Success",
+        description: "Coupon deleted successfully!",
+      });
+    }
+  };
+
+  const handleToggleCouponStatus = (couponId: string) => {
+    toggleCouponStatus(couponId);
+    toast({
+      title: "Success",
+      description: "Coupon status updated!",
+    });
+  };
+
   const handleAddCoupon = () => {
     if (!newCoupon.code || !newCoupon.description || !newCoupon.value) {
       toast({
@@ -136,18 +181,33 @@ const Admin = () => {
     }
 
     const coupon: Coupon = {
-      id: Date.now().toString(),
+      id: editingCoupon?.id || Date.now().toString(),
       code: newCoupon.code.toUpperCase(),
       description: newCoupon.description,
       type: newCoupon.type,
       value: parseFloat(newCoupon.value),
       minOrderValue: newCoupon.minOrderValue ? parseFloat(newCoupon.minOrderValue) : undefined,
       maxDiscount: newCoupon.maxDiscount ? parseFloat(newCoupon.maxDiscount) : undefined,
+      expiresAt: newCoupon.expiresAt ? new Date(newCoupon.expiresAt) : undefined,
+      usageLimit: newCoupon.usageLimit ? parseInt(newCoupon.usageLimit) : undefined,
       isActive: true,
-      usageCount: 0,
+      usageCount: editingCoupon?.usageCount || 0,
     };
 
-    addCoupon(coupon);
+    if (editingCoupon) {
+      updateCoupon(coupon);
+      toast({
+        title: "Success",
+        description: "Coupon updated successfully!",
+      });
+    } else {
+      addCoupon(coupon);
+      toast({
+        title: "Success",
+        description: "Coupon added successfully!",
+      });
+    }
+
     setNewCoupon({
       code: '',
       description: '',
@@ -155,13 +215,11 @@ const Admin = () => {
       value: '',
       minOrderValue: '',
       maxDiscount: '',
+      expiresAt: '',
+      usageLimit: '',
     });
     setShowAddCoupon(false);
-
-    toast({
-      title: "Success",
-      description: "Coupon added successfully!",
-    });
+    setEditingCoupon(null);
   };
 
   const handleAddCategory = () => {
@@ -494,11 +552,11 @@ const Admin = () => {
           </Card>
         )}
 
-        {/* Add Coupon Form */}
+        {/* Add/Edit Coupon Form */}
         {showAddCoupon && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle>Add New Coupon</CardTitle>
+              <CardTitle>{editingCoupon ? 'Edit Coupon' : 'Add New Coupon'}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -530,7 +588,7 @@ const Admin = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="couponValue">
                     Value * {newCoupon.type === 'percentage' ? '(%)' : '($)'}
@@ -566,6 +624,28 @@ const Admin = () => {
                     placeholder="100.00"
                   />
                 </div>
+                <div>
+                  <Label htmlFor="usageLimit">Usage Limit (Optional)</Label>
+                  <Input
+                    id="usageLimit"
+                    type="number"
+                    value={newCoupon.usageLimit}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, usageLimit: e.target.value })}
+                    placeholder="100"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="expiresAt">Expiry Date (Optional)</Label>
+                  <Input
+                    id="expiresAt"
+                    type="date"
+                    value={newCoupon.expiresAt}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, expiresAt: e.target.value })}
+                  />
+                </div>
               </div>
 
               <div>
@@ -581,9 +661,22 @@ const Admin = () => {
               <div className="flex space-x-4">
                 <Button onClick={handleAddCoupon} className="bg-gradient-button">
                   <Tag className="h-4 w-4 mr-2" />
-                  Add Coupon
+                  {editingCoupon ? 'Update Coupon' : 'Add Coupon'}
                 </Button>
-                <Button variant="outline" onClick={() => setShowAddCoupon(false)}>
+                <Button variant="outline" onClick={() => {
+                  setShowAddCoupon(false);
+                  setEditingCoupon(null);
+                  setNewCoupon({
+                    code: '',
+                    description: '',
+                    type: 'percentage',
+                    value: '',
+                    minOrderValue: '',
+                    maxDiscount: '',
+                    expiresAt: '',
+                    usageLimit: '',
+                  });
+                }}>
                   Cancel
                 </Button>
               </div>
@@ -594,21 +687,36 @@ const Admin = () => {
         {/* Coupons List */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Active Coupons ({coupons.filter(c => c.isActive).length})</CardTitle>
+            <CardTitle>All Coupons ({coupons.length})</CardTitle>
           </CardHeader>
           <CardContent>
-            {coupons.filter(c => c.isActive).length === 0 ? (
+            {coupons.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
-                No active coupons. Click "Add Coupon" to create one.
+                No coupons yet. Click "Add Coupon" to create one.
               </div>
             ) : (
               <div className="space-y-4">
-                {coupons.filter(c => c.isActive).map((coupon) => (
+                {coupons.map((coupon) => (
                   <div key={coupon.id} className="flex items-center justify-between p-4 border rounded-lg">
                     <div className="flex items-center space-x-4">
-                      <Badge variant="secondary" className="bg-primary text-primary-foreground">
-                        {coupon.code}
-                      </Badge>
+                      <div className="flex items-center space-x-2">
+                        <Badge 
+                          variant={coupon.isActive ? "secondary" : "outline"} 
+                          className={coupon.isActive ? "bg-primary text-primary-foreground" : ""}
+                        >
+                          {coupon.code}
+                        </Badge>
+                        {!coupon.isActive && (
+                          <Badge variant="secondary" className="text-muted-foreground">
+                            Disabled
+                          </Badge>
+                        )}
+                        {coupon.expiresAt && new Date(coupon.expiresAt) < new Date() && (
+                          <Badge variant="destructive">
+                            Expired
+                          </Badge>
+                        )}
+                      </div>
                       <div>
                         <p className="font-medium">{coupon.description}</p>
                         <p className="text-sm text-muted-foreground">
@@ -616,11 +724,36 @@ const Admin = () => {
                            coupon.type === 'fixed' ? `$${coupon.value} off` :
                            coupon.type === 'bogo' ? 'Buy 1 Get 1' : 'Free Shipping'}
                           {coupon.minOrderValue && ` (Min: $${coupon.minOrderValue})`}
+                          {coupon.expiresAt && ` • Expires: ${new Date(coupon.expiresAt).toLocaleDateString()}`}
+                          {coupon.usageLimit && ` • Limit: ${coupon.usageLimit}`}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          Used: {coupon.usageCount} times
                         </p>
                       </div>
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      Used: {coupon.usageCount} times
+                    <div className="flex space-x-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleEditCoupon(coupon)}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant={coupon.isActive ? "secondary" : "default"}
+                        onClick={() => handleToggleCouponStatus(coupon.id)}
+                      >
+                        {coupon.isActive ? 'Disable' : 'Enable'}
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDeleteCoupon(coupon.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
                 ))}

@@ -23,7 +23,9 @@ type CouponAction =
   | { type: 'ADD_COUPON'; payload: Coupon }
   | { type: 'APPLY_COUPON'; payload: string }
   | { type: 'REMOVE_COUPON' }
-  | { type: 'UPDATE_COUPON'; payload: Coupon };
+  | { type: 'UPDATE_COUPON'; payload: Coupon }
+  | { type: 'DELETE_COUPON'; payload: string }
+  | { type: 'TOGGLE_COUPON_STATUS'; payload: string };
 
 const initialCoupons: Coupon[] = [
   {
@@ -94,6 +96,20 @@ const couponReducer = (state: CouponState, action: CouponAction): CouponState =>
         ),
       };
     
+    case 'DELETE_COUPON':
+      return {
+        ...state,
+        coupons: state.coupons.filter(c => c.id !== action.payload),
+      };
+    
+    case 'TOGGLE_COUPON_STATUS':
+      return {
+        ...state,
+        coupons: state.coupons.map(c =>
+          c.id === action.payload ? { ...c, isActive: !c.isActive } : c
+        ),
+      };
+    
     default:
       return state;
   }
@@ -103,6 +119,9 @@ interface CouponContextType extends CouponState {
   addCoupon: (coupon: Coupon) => void;
   applyCoupon: (code: string) => boolean;
   removeCoupon: () => void;
+  deleteCoupon: (couponId: string) => void;
+  updateCoupon: (coupon: Coupon) => void;
+  toggleCouponStatus: (couponId: string) => void;
   calculateDiscount: (total: number) => { discount: number; finalTotal: number };
 }
 
@@ -132,6 +151,18 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
 
   const removeCoupon = () => {
     dispatch({ type: 'REMOVE_COUPON' });
+  };
+
+  const deleteCoupon = (couponId: string) => {
+    dispatch({ type: 'DELETE_COUPON', payload: couponId });
+  };
+
+  const updateCoupon = (coupon: Coupon) => {
+    dispatch({ type: 'UPDATE_COUPON', payload: coupon });
+  };
+
+  const toggleCouponStatus = (couponId: string) => {
+    dispatch({ type: 'TOGGLE_COUPON_STATUS', payload: couponId });
   };
 
   const calculateDiscount = (total: number): { discount: number; finalTotal: number } => {
@@ -183,6 +214,9 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
         addCoupon,
         applyCoupon,
         removeCoupon,
+        deleteCoupon,
+        updateCoupon,
+        toggleCouponStatus,
         calculateDiscount,
       }}
     >
