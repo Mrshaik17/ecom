@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Plus, Edit, Trash2, Upload, Link as LinkIcon, Eye, Package } from 'lucide-react';
+import { Plus, Edit, Trash2, Upload, Link as LinkIcon, Eye, Package, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useProducts } from '@/context/ProductContext';
+import { useCoupon, Coupon } from '@/context/CouponContext';
 
 interface Product {
   id: string;
@@ -22,13 +23,19 @@ interface Product {
   isNew: boolean;
   isSale: boolean;
   isFeatured: boolean;
+  shipping?: {
+    cost: number;
+    freeShippingThreshold?: number;
+  };
 }
 
 const Admin = () => {
   const { toast } = useToast();
   const { products, categories, addProduct, removeProduct, addCategory } = useProducts();
+  const { coupons, addCoupon } = useCoupon();
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddCategory, setShowAddCategory] = useState(false);
+  const [showAddCoupon, setShowAddCoupon] = useState(false);
   const [newCategory, setNewCategory] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -43,6 +50,17 @@ const Admin = () => {
     isNew: false,
     isSale: false,
     isFeatured: false,
+    shippingCost: '',
+    freeShippingThreshold: '',
+  });
+
+  const [newCoupon, setNewCoupon] = useState({
+    code: '',
+    description: '',
+    type: 'percentage' as const,
+    value: '',
+    minOrderValue: '',
+    maxDiscount: '',
   });
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +96,10 @@ const Admin = () => {
       isNew: newProduct.isNew,
       isSale: newProduct.isSale,
       isFeatured: newProduct.isFeatured,
+      shipping: newProduct.shippingCost ? {
+        cost: parseFloat(newProduct.shippingCost),
+        freeShippingThreshold: newProduct.freeShippingThreshold ? parseFloat(newProduct.freeShippingThreshold) : undefined,
+      } : undefined,
     };
 
     addProduct(product);
@@ -92,12 +114,53 @@ const Admin = () => {
       isNew: false,
       isSale: false,
       isFeatured: false,
+      shippingCost: '',
+      freeShippingThreshold: '',
     });
     setShowAddProduct(false);
 
     toast({
       title: "Success",
       description: "Product added successfully!",
+    });
+  };
+
+  const handleAddCoupon = () => {
+    if (!newCoupon.code || !newCoupon.description || !newCoupon.value) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const coupon: Coupon = {
+      id: Date.now().toString(),
+      code: newCoupon.code.toUpperCase(),
+      description: newCoupon.description,
+      type: newCoupon.type,
+      value: parseFloat(newCoupon.value),
+      minOrderValue: newCoupon.minOrderValue ? parseFloat(newCoupon.minOrderValue) : undefined,
+      maxDiscount: newCoupon.maxDiscount ? parseFloat(newCoupon.maxDiscount) : undefined,
+      isActive: true,
+      usageCount: 0,
+    };
+
+    addCoupon(coupon);
+    setNewCoupon({
+      code: '',
+      description: '',
+      type: 'percentage',
+      value: '',
+      minOrderValue: '',
+      maxDiscount: '',
+    });
+    setShowAddCoupon(false);
+
+    toast({
+      title: "Success",
+      description: "Coupon added successfully!",
     });
   };
 
@@ -134,7 +197,7 @@ const Admin = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">TechFusion Admin Panel</h1>
-          <p className="text-muted-foreground">Manage your products and categories</p>
+          <p className="text-muted-foreground">Manage your products, categories, and coupons</p>
         </div>
 
         {/* Stats Cards */}
@@ -175,10 +238,10 @@ const Admin = () => {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center space-x-2">
-                <Plus className="h-8 w-8 text-warning" />
+                <Tag className="h-8 w-8 text-warning" />
                 <div>
-                  <p className="text-2xl font-bold">{products.filter(p => p.isNew).length}</p>
-                  <p className="text-sm text-muted-foreground">New Products</p>
+                  <p className="text-2xl font-bold">{coupons.filter(c => c.isActive).length}</p>
+                  <p className="text-sm text-muted-foreground">Active Coupons</p>
                 </div>
               </div>
             </CardContent>
@@ -194,6 +257,10 @@ const Admin = () => {
           <Button variant="outline" onClick={() => setShowAddCategory(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Add Category
+          </Button>
+          <Button variant="outline" onClick={() => setShowAddCoupon(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Coupon
           </Button>
         </div>
 
@@ -233,26 +300,64 @@ const Admin = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor="price">Price *</Label>
+                  <Label htmlFor="price">Selling Price *</Label>
                   <Input
                     id="price"
                     type="number"
                     step="0.01"
                     value={newProduct.price}
                     onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                    placeholder="0.00"
+                    placeholder="Final price customers pay"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="originalPrice">Original Price (for sales)</Label>
+                  <Label htmlFor="originalPrice">MRP (Original Price)</Label>
                   <Input
                     id="originalPrice"
                     type="number"
                     step="0.01"
                     value={newProduct.originalPrice}
                     onChange={(e) => setNewProduct({ ...newProduct, originalPrice: e.target.value })}
-                    placeholder="0.00"
+                    placeholder="Enter MRP for discount display"
                   />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Shows crossed-out price and discount percentage to customers
+                  </p>
+                </div>
+              </div>
+
+              {/* Shipping Configuration */}
+              <div className="space-y-4">
+                <h3 className="font-medium text-lg border-t pt-4">Shipping Configuration</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="shippingCost">Shipping Cost ($)</Label>
+                    <Input
+                      id="shippingCost"
+                      type="number"
+                      step="0.01"
+                      value={newProduct.shippingCost}
+                      onChange={(e) => setNewProduct({ ...newProduct, shippingCost: e.target.value })}
+                      placeholder="0.00 (Leave empty for free shipping)"
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Leave empty for free shipping on this product
+                    </p>
+                  </div>
+                  <div>
+                    <Label htmlFor="freeShippingThreshold">Free Shipping Above ($)</Label>
+                    <Input
+                      id="freeShippingThreshold"
+                      type="number"
+                      step="0.01"
+                      value={newProduct.freeShippingThreshold}
+                      onChange={(e) => setNewProduct({ ...newProduct, freeShippingThreshold: e.target.value })}
+                      placeholder="100.00 (Optional)"
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Free shipping if order value exceeds this amount
+                    </p>
+                  </div>
                 </div>
               </div>
               
@@ -389,6 +494,141 @@ const Admin = () => {
           </Card>
         )}
 
+        {/* Add Coupon Form */}
+        {showAddCoupon && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Add New Coupon</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="couponCode">Coupon Code *</Label>
+                  <Input
+                    id="couponCode"
+                    value={newCoupon.code}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, code: e.target.value.toUpperCase() })}
+                    placeholder="SAVE20"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="couponType">Discount Type *</Label>
+                  <Select
+                    value={newCoupon.type}
+                    onValueChange={(value: any) => setNewCoupon({ ...newCoupon, type: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="percentage">Percentage (%)</SelectItem>
+                      <SelectItem value="fixed">Fixed Amount ($)</SelectItem>
+                      <SelectItem value="bogo">Buy One Get One</SelectItem>
+                      <SelectItem value="free_shipping">Free Shipping</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="couponValue">
+                    Value * {newCoupon.type === 'percentage' ? '(%)' : '($)'}
+                  </Label>
+                  <Input
+                    id="couponValue"
+                    type="number"
+                    step="0.01"
+                    value={newCoupon.value}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, value: e.target.value })}
+                    placeholder={newCoupon.type === 'percentage' ? '20' : '10.00'}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="minOrderValue">Min Order Value</Label>
+                  <Input
+                    id="minOrderValue"
+                    type="number"
+                    step="0.01"
+                    value={newCoupon.minOrderValue}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, minOrderValue: e.target.value })}
+                    placeholder="50.00"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="maxDiscount">Max Discount (for %)</Label>
+                  <Input
+                    id="maxDiscount"
+                    type="number"
+                    step="0.01"
+                    value={newCoupon.maxDiscount}
+                    onChange={(e) => setNewCoupon({ ...newCoupon, maxDiscount: e.target.value })}
+                    placeholder="100.00"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="couponDescription">Description *</Label>
+                <Input
+                  id="couponDescription"
+                  value={newCoupon.description}
+                  onChange={(e) => setNewCoupon({ ...newCoupon, description: e.target.value })}
+                  placeholder="20% off your entire order"
+                />
+              </div>
+
+              <div className="flex space-x-4">
+                <Button onClick={handleAddCoupon} className="bg-gradient-button">
+                  <Tag className="h-4 w-4 mr-2" />
+                  Add Coupon
+                </Button>
+                <Button variant="outline" onClick={() => setShowAddCoupon(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Coupons List */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Active Coupons ({coupons.filter(c => c.isActive).length})</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {coupons.filter(c => c.isActive).length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                No active coupons. Click "Add Coupon" to create one.
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {coupons.filter(c => c.isActive).map((coupon) => (
+                  <div key={coupon.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center space-x-4">
+                      <Badge variant="secondary" className="bg-primary text-primary-foreground">
+                        {coupon.code}
+                      </Badge>
+                      <div>
+                        <p className="font-medium">{coupon.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {coupon.type === 'percentage' ? `${coupon.value}% off` : 
+                           coupon.type === 'fixed' ? `$${coupon.value} off` :
+                           coupon.type === 'bogo' ? 'Buy 1 Get 1' : 'Free Shipping'}
+                          {coupon.minOrderValue && ` (Min: $${coupon.minOrderValue})`}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Used: {coupon.usageCount} times
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Products List */}
         <Card>
           <CardHeader>
@@ -414,7 +654,31 @@ const Admin = () => {
                     <div className="flex-1">
                       <h3 className="font-semibold">{product.name}</h3>
                       <p className="text-sm text-muted-foreground">{product.category}</p>
-                      <p className="text-sm font-medium text-price">${product.price}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-price">
+                          ${product.price.toFixed(2)}
+                        </span>
+                        {product.originalPrice && (
+                          <>
+                            <span className="text-xs text-muted-foreground line-through">
+                              MRP: ${product.originalPrice.toFixed(2)}
+                            </span>
+                            <span className="text-xs text-success">
+                              Save ${(product.originalPrice - product.price).toFixed(2)}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      {product.shipping ? (
+                        <p className="text-xs text-muted-foreground">
+                          Shipping: ${product.shipping.cost.toFixed(2)}
+                          {product.shipping.freeShippingThreshold && 
+                            ` (Free above $${product.shipping.freeShippingThreshold})`
+                          }
+                        </p>
+                      ) : (
+                        <p className="text-xs text-success">Free Shipping</p>
+                      )}
                     </div>
                     <div className="flex space-x-2">
                       {product.isNew && <Badge>New</Badge>}

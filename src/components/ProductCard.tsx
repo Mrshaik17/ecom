@@ -17,6 +17,10 @@ export interface Product {
   isNew?: boolean;
   isSale?: boolean;
   isFeatured?: boolean;
+  shipping?: {
+    cost: number;
+    freeShippingThreshold?: number;
+  };
 }
 
 interface ProductCardProps {

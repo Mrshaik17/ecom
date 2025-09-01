@@ -8,7 +8,9 @@ import {
 } from '@/components/ui/dialog';
 import { Product } from './ProductCard';
 import { useOrder, OrderAddress } from '@/context/OrderContext';
+import { useCoupon } from '@/context/CouponContext'; 
 import AddressForm from './AddressForm';
+import CouponApply from './CouponApply';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -21,6 +23,7 @@ interface BuyNowDialogProps {
 const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { startOrder, completeOrder, cancelOrder } = useOrder();
+  const { calculateDiscount } = useCoupon();
   const navigate = useNavigate();
 
   if (!product) return null;
@@ -52,6 +55,13 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
   const discount = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  const { discount: couponDiscount, finalTotal } = calculateDiscount(product.price);
+  const shippingCost = product.shipping?.cost || 0;
+  const isShippingFree = !product.shipping || 
+    (product.shipping.freeShippingThreshold && finalTotal >= product.shipping.freeShippingThreshold);
+  const finalShippingCost = isShippingFree ? 0 : shippingCost;
+  const grandTotal = finalTotal + finalShippingCost;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCancel}>
@@ -123,9 +133,25 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
                     <span>Subtotal:</span>
                     <span>${product.price.toFixed(2)}</span>
                   </div>
+                  {couponDiscount > 0 && (
+                    <div className="flex justify-between text-sm text-success">
+                      <span>Coupon Discount:</span>
+                      <span>-${couponDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-sm">
+                    <span>Shipping:</span>
+                    <span>
+                      {isShippingFree ? (
+                        <span className="text-success">Free</span>
+                      ) : (
+                        `$${finalShippingCost.toFixed(2)}`
+                      )}
+                    </span>
+                  </div>
                   <div className="flex justify-between font-bold text-lg pt-2 border-t">
                     <span>Total:</span>
-                    <span>${product.price.toFixed(2)}</span>
+                    <span>${grandTotal.toFixed(2)}</span>
                   </div>
                 </div>
               </CardContent>
@@ -143,6 +169,11 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
           
           {/* Address Form */}
           <div>
+            {/* Coupon Section */}
+            <div className="mb-6">
+              <CouponApply total={product.price} />
+            </div>
+            
             <AddressForm
               onSubmit={handleAddressSubmit}
               onCancel={handleCancel}
