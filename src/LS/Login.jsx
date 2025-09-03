@@ -106,10 +106,20 @@ export default function AuthPage() {
               <input
                 type="password"
                 placeholder="Password"
-                className="w-full px-4 py-3 mb-4 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-3 mb-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+
+              {/* Forgot Password Button */}
+              <button
+  type="button"
+  onClick={() => navigate("/forgot-password")}
+  className="text-blue-500 hover:underline"
+>
+  Forgot Password?
+</button>
+
 
               {/* Sign In Button */}
               <button

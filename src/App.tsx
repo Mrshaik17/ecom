@@ -23,6 +23,8 @@ import OrderSuccess from "./pages/OrderSuccess";
 import Products from "./pages/Products";
 import NewArrivals from "./pages/NewArrivals";
 import Login from "./LS/Login";
+import ResetPassword from "./LS/ResetPassword"; // ✅ add reset password page
+import ForgotPassword from "./LS/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +68,11 @@ const App = () => {
 
             {/* Login (only show when logged out) */}
             <Route path="/login" element={user ? <Navigate to="/home" replace /> : <Login />} />
+
+            {/* ✅ Forgot Password Route */}
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+
 
             {/* Admin (currently unprotected) */}
             <Route path="/admin" element={<Admin />} />

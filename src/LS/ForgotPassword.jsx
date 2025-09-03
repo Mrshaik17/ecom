@@ -1,10 +1,10 @@
 // LS/ForgotPassword.jsx
 import React, { useState } from "react";
-import { useAuth } from "./Auth";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "./firebase"; // ✅ make sure this path is correct
 import "./Auth.css";
 
 const ForgotPassword = () => {
-  const { forgotPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -13,19 +13,22 @@ const ForgotPassword = () => {
     e.preventDefault();
     setError("");
     setMessage("");
+
     try {
-      await forgotPassword(email);
-      setMessage("Password reset email sent!");
+      await sendPasswordResetEmail(auth, email);
+      setMessage("✅ Password reset email sent! Check your inbox.");
     } catch (err) {
-      setError("Error: " + err.message);
+      setError("❌ Error: " + err.message);
     }
   };
 
   return (
     <div className="auth-container">
       <h2>Forgot Password</h2>
+
       {message && <p className="success">{message}</p>}
       {error && <p className="error">{error}</p>}
+
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -34,7 +37,7 @@ const ForgotPassword = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Reset Password</button>
+        <button type="submit">Send Reset Link</button>
       </form>
     </div>
   );

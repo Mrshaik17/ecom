@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, User, Package, HelpCircle, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,13 +9,32 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useOrder } from '@/context/OrderContext';
+import { auth } from '../LS/firebase';  // ✅ make sure this path is correct
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const UserAccountDropdown = () => {
   const { orders } = useOrder();
-  
-  const handleLogout = () => {
-    // Add logout logic here
-    console.log('User logged out');
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email);
+      } else {
+        setUserEmail(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('✅ User logged out');
+    } catch (error) {
+      console.error('❌ Logout failed:', error);
+    }
   };
 
   return (
@@ -34,7 +53,9 @@ const UserAccountDropdown = () => {
       >
         <div className="p-2 border-b border-border">
           <p className="text-sm font-medium">Welcome back!</p>
-          <p className="text-xs text-muted-foreground">user@example.com</p>
+          <p className="text-xs text-muted-foreground">
+            {userEmail || 'Not signed in'}
+          </p>
         </div>
         
         <DropdownMenuItem className="cursor-pointer">
