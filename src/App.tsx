@@ -26,9 +26,13 @@ import Login from "./LS/Login";
 import ResetPassword from "./LS/ResetPassword"; // ✅ add reset password page
 import ForgotPassword from "./LS/ForgotPassword";
 
+// ✅ New: Admin Login page & route protection for Admin
+import AdminLogin from "@/pages/AdminLogin";
+import ProtectedRoute from "@/pages/routes/ProtectedRoute";
+
 const queryClient = new QueryClient();
 
-// 🔒 PrivateRoute wrapper
+// 🔒 PrivateRoute wrapper for customer pages (existing Firebase logic)
 const PrivateRoute = ({ user, children }: { user: any; children: JSX.Element }) => {
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -69,13 +73,20 @@ const App = () => {
             {/* Login (only show when logged out) */}
             <Route path="/login" element={user ? <Navigate to="/home" replace /> : <Login />} />
 
-            {/* ✅ Forgot Password Route */}
+            {/* ✅ Forgot Password Routes */}
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
-
-            {/* Admin (currently unprotected) */}
-            <Route path="/admin" element={<Admin />} />
+            {/* ✅ Admin Login & Protected Admin */}
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Protected Store Routes */}
             <Route
