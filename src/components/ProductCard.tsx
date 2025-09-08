@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, ShoppingCart, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -31,6 +32,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCardProps) => {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -81,7 +83,10 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
         </div>
 
         {/* Product Image */}
-        <div className="aspect-square overflow-hidden">
+        <div 
+          className="aspect-square overflow-hidden cursor-pointer"
+          onClick={() => navigate(`/product/${product.id}`)}
+        >
           <img
             src={product.image}
             alt={product.name}

@@ -8,8 +8,7 @@ interface Props {
 }
 
 export default function ProtectedRoute({ children }: Props) {
-  const token = getToken();
-  const ok = isTokenValid(token);
+  const ok = isTokenValid();
 
   if (!ok) {
     return <Navigate to="/admin-login" replace />;

@@ -21,6 +21,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import OrderSuccess from "./pages/OrderSuccess";
 import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
 import NewArrivals from "./pages/NewArrivals";
 import Login from "./LS/Login";
 import ResetPassword from "./LS/ResetPassword"; // ✅ add reset password page
@@ -187,6 +188,21 @@ const App = () => {
                     <Header />
                     <main className="flex-1">
                       <NewArrivals />
+                    </main>
+                    <Footer />
+                    <WhatsAppButton />
+                  </>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/product/:productId"
+              element={
+                <PrivateRoute user={user}>
+                  <>
+                    <Header />
+                    <main className="flex-1">
+                      <ProductDetail />
                     </main>
                     <Footer />
                     <WhatsAppButton />
