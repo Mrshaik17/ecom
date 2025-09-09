@@ -12,6 +12,7 @@ export interface Product {
   originalPrice?: number;
   image: string;
   images?: string[]; // Additional images for product gallery
+  imageIndices?: number[]; // For referencing category images by index
   category: string;
   description: string;
   rating?: number;
