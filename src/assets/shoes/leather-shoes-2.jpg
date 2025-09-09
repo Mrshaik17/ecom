@@ -1,0 +1,2 @@
+import leatherShoes1 from './leather-shoes-1.jpg';
+export default leatherShoes1; // Placeholder - would be different angle

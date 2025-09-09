@@ -389,7 +389,7 @@ const Admin = () => {
                 <h3 className="font-medium text-lg border-t pt-4">Shipping Configuration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="shippingCost">Shipping Cost ($)</Label>
+                    <Label htmlFor="shippingCost">Shipping Cost (₹)</Label>
                     <Input
                       id="shippingCost"
                       type="number"
@@ -403,7 +403,7 @@ const Admin = () => {
                     </p>
                   </div>
                   <div>
-                    <Label htmlFor="freeShippingThreshold">Free Shipping Above ($)</Label>
+                    <Label htmlFor="freeShippingThreshold">Free Shipping Above (₹)</Label>
                     <Input
                       id="freeShippingThreshold"
                       type="number"
@@ -580,7 +580,7 @@ const Admin = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="percentage">Percentage (%)</SelectItem>
-                      <SelectItem value="fixed">Fixed Amount ($)</SelectItem>
+                      <SelectItem value="fixed">Fixed Amount (₹)</SelectItem>
                       <SelectItem value="bogo">Buy One Get One</SelectItem>
                       <SelectItem value="free_shipping">Free Shipping</SelectItem>
                     </SelectContent>
@@ -591,7 +591,7 @@ const Admin = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="couponValue">
-                    Value * {newCoupon.type === 'percentage' ? '(%)' : '($)'}
+                    Value * {newCoupon.type === 'percentage' ? '(%)' : '(₹)'}
                   </Label>
                   <Input
                     id="couponValue"
@@ -721,9 +721,9 @@ const Admin = () => {
                         <p className="font-medium">{coupon.description}</p>
                         <p className="text-sm text-muted-foreground">
                           {coupon.type === 'percentage' ? `${coupon.value}% off` : 
-                           coupon.type === 'fixed' ? `$${coupon.value} off` :
+                           coupon.type === 'fixed' ? `₹${coupon.value} off` :
                            coupon.type === 'bogo' ? 'Buy 1 Get 1' : 'Free Shipping'}
-                          {coupon.minOrderValue && ` (Min: $${coupon.minOrderValue})`}
+                          {coupon.minOrderValue && ` (Min: ₹${coupon.minOrderValue})`}
                           {coupon.expiresAt && ` • Expires: ${new Date(coupon.expiresAt).toLocaleDateString()}`}
                           {coupon.usageLimit && ` • Limit: ${coupon.usageLimit}`}
                         </p>
@@ -804,9 +804,9 @@ const Admin = () => {
                       </div>
                       {product.shipping ? (
                         <p className="text-xs text-muted-foreground">
-                          Shipping: ${product.shipping.cost.toFixed(2)}
+                          Shipping: ₹{product.shipping.cost.toLocaleString('en-IN')}
                           {product.shipping.freeShippingThreshold && 
-                            ` (Free above $${product.shipping.freeShippingThreshold})`
+                            ` (Free above ₹${product.shipping.freeShippingThreshold.toLocaleString('en-IN')})`
                           }
                         </p>
                       ) : (

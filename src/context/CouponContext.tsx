@@ -194,7 +194,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
         break;
       
       case 'free_shipping':
-        discount = 10; // Assuming $10 shipping cost
+        discount = 800; // Assuming ₹800 shipping cost
         break;
       
       default:

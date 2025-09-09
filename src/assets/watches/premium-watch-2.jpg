@@ -1,0 +1,2 @@
+import premiumWatch1 from './premium-watch-1.jpg';
+export default premiumWatch1; // Placeholder - would be different angle

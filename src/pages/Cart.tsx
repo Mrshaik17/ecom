@@ -5,10 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/context/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { Link } from 'react-router-dom';
+import CouponApply from '@/components/CouponApply';
+import { useCoupon } from '@/context/CouponContext';
 
 const Cart = () => {
   const { items, total, removeItem, updateQuantity, clearCart } = useCart();
   const { toast } = useToast();
+  const { calculateDiscount } = useCoupon();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
@@ -87,10 +90,10 @@ const Cart = () => {
                       <h3 className="font-semibold text-lg truncate">{item.name}</h3>
                       <p className="text-sm text-muted-foreground capitalize">{item.category}</p>
                       <div className="flex items-center space-x-2 mt-2">
-                        <span className="font-bold text-price text-lg">${item.price.toFixed(2)}</span>
+                        <span className="font-bold text-price text-lg">₹{item.price.toLocaleString('en-IN')}</span>
                         {item.originalPrice && (
                           <span className="text-sm text-muted-foreground line-through">
-                            ${item.originalPrice.toFixed(2)}
+                            ₹{item.originalPrice.toLocaleString('en-IN')}
                           </span>
                         )}
                       </div>
@@ -121,7 +124,7 @@ const Cart = () => {
                     </div>
 
                     <div className="text-right">
-                      <p className="font-bold text-lg">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-bold text-lg">₹{(item.price * item.quantity).toLocaleString('en-IN')}</p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -144,23 +147,34 @@ const Cart = () => {
                 <CardTitle>Order Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
+                {/* Coupon Section */}
+                <CouponApply total={total} />
+                
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>₹{total.toLocaleString('en-IN')}</span>
                   </div>
+                  
+                  {calculateDiscount(total).discount > 0 && (
+                    <div className="flex justify-between text-sm text-success">
+                      <span>Coupon Discount</span>
+                      <span>-₹{calculateDiscount(total).discount.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+                  
                   <div className="flex justify-between text-sm">
                     <span>Shipping</span>
                     <span className="text-success">Free</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Tax</span>
-                    <span>${(total * 0.08).toFixed(2)}</span>
+                    <span>Tax (18%)</span>
+                    <span>₹{(calculateDiscount(total).finalTotal * 0.18).toLocaleString('en-IN')}</span>
                   </div>
                   <div className="border-t pt-2">
                     <div className="flex justify-between font-bold text-lg">
                       <span>Total</span>
-                      <span>${(total * 1.08).toFixed(2)}</span>
+                      <span>₹{(calculateDiscount(total).finalTotal * 1.18).toLocaleString('en-IN')}</span>
                     </div>
                   </div>
                 </div>
@@ -194,7 +208,7 @@ const Cart = () => {
 
                 <div className="text-xs text-muted-foreground text-center space-y-1">
                   <p>🔒 Secure checkout with SSL encryption</p>
-                  <p>📦 Free shipping on orders over $100</p>
+                  <p>📦 Free shipping on orders over ₹8,000</p>
                   <p>↩️ 30-day return policy</p>
                 </div>
               </CardContent>

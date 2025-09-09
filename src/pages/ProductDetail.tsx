@@ -63,12 +63,8 @@ const ProductDetail = () => {
     ));
   };
 
-  // Mock additional images for demo (in real app, this would come from product data)
-  const productImages = [
-    product.image,
-    product.image, // In real app, these would be different angles
-    product.image,
-  ];
+  // Get product images from product data or fallback to single image
+  const productImages = product.images || [product.image];
 
   return (
     <div className="min-h-screen bg-background">
@@ -145,11 +141,11 @@ const ProductDetail = () => {
               {/* Price */}
               <div className="flex items-center space-x-3 mb-6">
                 <span className="text-3xl font-bold">
-                  ${product.price}
+                  ₹{product.price.toLocaleString('en-IN')}
                 </span>
                 {product.originalPrice && (
                   <span className="text-lg text-muted-foreground line-through">
-                    ${product.originalPrice}
+                    ₹{product.originalPrice.toLocaleString('en-IN')}
                   </span>
                 )}
               </div>
@@ -218,7 +214,7 @@ const ProductDetail = () => {
                   <CardContent className="p-4 text-center">
                     <Truck className="h-6 w-6 mx-auto mb-2 text-primary" />
                     <p className="text-sm font-medium">Free Shipping</p>
-                    <p className="text-xs text-muted-foreground">On orders over $100</p>
+                    <p className="text-xs text-muted-foreground">On orders over ₹8,000</p>
                   </CardContent>
                 </Card>
                 

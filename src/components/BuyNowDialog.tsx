@@ -89,12 +89,12 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
                     
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-lg">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toLocaleString('en-IN')}
                       </span>
                       {product.originalPrice && (
                         <>
                           <span className="text-sm text-muted-foreground line-through">
-                            ${product.originalPrice.toFixed(2)}
+                            ₹{product.originalPrice.toLocaleString('en-IN')}
                           </span>
                           <Badge variant="destructive" className="text-xs">
                             -{discount}% OFF
@@ -131,12 +131,12 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span>Subtotal:</span>
-                    <span>${product.price.toFixed(2)}</span>
+                    <span>₹{product.price.toLocaleString('en-IN')}</span>
                   </div>
                   {couponDiscount > 0 && (
                     <div className="flex justify-between text-sm text-success">
                       <span>Coupon Discount:</span>
-                      <span>-${couponDiscount.toFixed(2)}</span>
+                      <span>-₹{couponDiscount.toLocaleString('en-IN')}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-sm">
@@ -145,13 +145,13 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
                       {isShippingFree ? (
                         <span className="text-success">Free</span>
                       ) : (
-                        `$${finalShippingCost.toFixed(2)}`
+                        `₹${finalShippingCost.toLocaleString('en-IN')}`
                       )}
                     </span>
                   </div>
                   <div className="flex justify-between font-bold text-lg pt-2 border-t">
                     <span>Total:</span>
-                    <span>${grandTotal.toFixed(2)}</span>
+                    <span>₹{grandTotal.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
               </CardContent>

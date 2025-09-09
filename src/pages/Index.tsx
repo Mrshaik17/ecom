@@ -90,7 +90,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { icon: TruckIcon, title: 'Free Shipping', desc: 'On orders over $100' },
+              { icon: TruckIcon, title: 'Free Shipping', desc: 'On orders over ₹8,000' },
               { icon: ShieldCheck, title: 'Secure Payment', desc: '100% protected checkout' },
               { icon: Headphones, title: '24/7 Support', desc: 'Dedicated customer service' },
               { icon: Star, title: 'Quality Guarantee', desc: 'Premium imported products' },
@@ -145,7 +145,7 @@ const Index = () => {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Get 50% off on your second item. Minimum order value: $50
+                  Get 50% off on your second item. Minimum order value: ₹4,000
                 </p>
               </div>
               
@@ -159,7 +159,7 @@ const Index = () => {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Save 20% on orders over $100. Maximum discount: $50
+                  Save 20% on orders over ₹8,000. Maximum discount: ₹4,000
                 </p>
               </div>
               
@@ -297,7 +297,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { icon: TruckIcon, title: 'Free Shipping', desc: 'On orders over $100' },
+              { icon: TruckIcon, title: 'Free Shipping', desc: 'On orders over ₹8,000' },
               { icon: ShieldCheck, title: 'Secure Payment', desc: '100% protected checkout' },
               { icon: Headphones, title: '24/7 Support', desc: 'Dedicated customer service' },
               { icon: Star, title: 'Quality Guarantee', desc: 'Premium imported products' },

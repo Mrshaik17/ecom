@@ -175,10 +175,10 @@ const Categories = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Prices</SelectItem>
-                    <SelectItem value="under-50">Under $50</SelectItem>
-                    <SelectItem value="50-100">$50 - $100</SelectItem>
-                    <SelectItem value="100-200">$100 - $200</SelectItem>
-                    <SelectItem value="over-200">Over $200</SelectItem>
+                    <SelectItem value="under-4000">Under ₹4,000</SelectItem>
+                    <SelectItem value="4000-8000">₹4,000 - ₹8,000</SelectItem>
+                    <SelectItem value="8000-15000">₹8,000 - ₹15,000</SelectItem>
+                    <SelectItem value="over-15000">Over ₹15,000</SelectItem>
                     <SelectItem value="offers">Special Offers</SelectItem>
                   </SelectContent>
                 </Select>

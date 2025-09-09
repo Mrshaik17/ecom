@@ -11,6 +11,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  images?: string[]; // Additional images for product gallery
   category: string;
   description: string;
   rating?: number;
@@ -161,11 +162,11 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
           {/* Price */}
           <div className="flex items-center gap-2">
             <span className="font-bold text-lg text-price">
-              ${product.price.toFixed(2)}
+              ₹{product.price.toFixed(2)}
             </span>
             {product.originalPrice && (
               <span className="text-sm text-muted-foreground line-through">
-                ${product.originalPrice.toFixed(2)}
+                ₹{product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>
