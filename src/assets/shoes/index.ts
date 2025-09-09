@@ -1,12 +1,13 @@
-// Shoes Category Images  
-// Add your shoe images here - just import and add to the array
-
-import shoe1 from './leather-shoes-1.jpg';
-import shoe2 from './leather-shoes-2.jpg';
-
+import shoe1 from './1.jpg';
+import shoe2 from './2.jpg';
+import shoe3 from './3.jpg';
+import shoe4 from './4.jpg';
 export const shoeImages = [
   shoe1,
   shoe2,
+  shoe3,
+  shoe4
+
   // Add more shoe images here as you import them
   // shoe3,
   // shoe4,
@@ -14,4 +15,4 @@ export const shoeImages = [
 ];
 
 // Export individual images if needed
-export { shoe1, shoe2 };
+export { shoe1, shoe2, shoe3, shoe4 };
