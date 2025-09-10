@@ -1,15 +1,8 @@
-// Premium Category Images
-// Add your premium images here - just import and add to the array
-
-// For now, using watch images for premium category
-import { watchImages } from '../watches';
+// Premium category images
+import luxuryWatch1 from './luxury-watch-1.jpg';
 
 export const premiumImages = [
-  ...watchImages,
-  // Add more premium images here as you import them
-  // premium1,
-  // premium2,
-  // etc...
+  luxuryWatch1,
 ];
 
 export default premiumImages;

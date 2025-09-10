@@ -3,13 +3,15 @@ import { Product } from '@/components/ProductCard';
 
 export interface OrderAddress {
   fullName: string;
-  email: string;
-  phone: string;
   address: string;
+  landmark?: string;
   city: string;
   state: string;
-  zipCode: string;
-  country: string;
+  pincode: string;
+  phone: string;
+  alternatePhone?: string;
+  size?: string;
+  color?: string;
 }
 
 export interface Order {

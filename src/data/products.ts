@@ -14,13 +14,34 @@ export const demoProducts: Product[] = [
     description: 'Crocs OFF-Road',
     rating: 4.8,
     inStock: true,
-    isNew: false,
-    isSale: false,
-    isFeatured: false,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White'],
+      sizes: ['6', '7', '8', '9', '10', '11']
+    },
   },
-  
-
-
+  {
+    id: '1',
+    name: 'Luxury Premium Watch',
+    price: 12999,
+    originalPrice: 18999,
+    image: getCategoryImage('premium', 0),
+    images: [getCategoryImage('premium', 0)],
+    imageIndices: [0],
+    category: 'premium',
+    description: 'Exclusive luxury timepiece with gold-plated finish and premium leather strap',
+    rating: 4.9,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Gold', 'Silver', 'Rose Gold'],
+      sizes: ['38mm', '42mm']
+    },
+  },
 ];
 
 export const categories = [

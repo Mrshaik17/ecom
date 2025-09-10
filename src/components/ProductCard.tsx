@@ -20,6 +20,10 @@ export interface Product {
   isNew?: boolean;
   isSale?: boolean;
   isFeatured?: boolean;
+  variants?: {
+    colors?: string[];
+    sizes?: string[];
+  };
   shipping?: {
     cost: number;
     freeShippingThreshold?: number;
@@ -145,16 +149,22 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
           {product.rating && (
             <div className="flex items-center gap-1">
               <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <span
-                    key={i}
-                    className={`text-xs ${
-                      i < product.rating! ? 'text-yellow-400' : 'text-gray-300'
-                    }`}
-                  >
-                    ★
-                  </span>
-                ))}
+                {[...Array(5)].map((_, i) => {
+                  const rating = product.rating!;
+                  const isFull = i < Math.floor(rating);
+                  const isHalf = i === Math.floor(rating) && rating % 1 >= 0.5;
+                  
+                  return (
+                    <span
+                      key={i}
+                      className={`text-xs ${
+                        isFull ? 'text-yellow-400' : isHalf ? 'text-yellow-400' : 'text-gray-300'
+                      }`}
+                    >
+                      {isFull ? '★' : isHalf ? '☆' : '☆'}
+                    </span>
+                  );
+                })}
               </div>
               <span className="text-xs text-muted-foreground">({product.rating})</span>
             </div>

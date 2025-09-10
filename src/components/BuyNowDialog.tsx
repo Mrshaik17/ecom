@@ -174,11 +174,12 @@ const BuyNowDialog = ({ isOpen, onClose, product }: BuyNowDialogProps) => {
               <CouponApply total={product.price} />
             </div>
             
-            <AddressForm
-              onSubmit={handleAddressSubmit}
-              onCancel={handleCancel}
-              isLoading={isLoading}
-            />
+        <AddressForm
+          onSubmit={handleAddressSubmit}
+          onCancel={handleCancel}
+          isLoading={isLoading}
+          productVariants={product?.variants}
+        />
           </div>
         </div>
       </DialogContent>

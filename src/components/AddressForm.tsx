@@ -8,31 +8,39 @@ import { MapPin, Phone, Mail, User } from 'lucide-react';
 
 interface AddressFormData {
   fullName: string;
-  email: string;
-  phone: string;
   address: string;
+  landmark: string;
   city: string;
   state: string;
-  zipCode: string;
-  country: string;
+  pincode: string;
+  phone: string;
+  alternatePhone: string;
+  size?: string;
+  color?: string;
 }
 
 interface AddressFormProps {
   onSubmit: (data: AddressFormData) => void;
   onCancel: () => void;
   isLoading?: boolean;
+  productVariants?: {
+    colors?: string[];
+    sizes?: string[];
+  };
 }
 
-const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
+const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: AddressFormProps) => {
   const [formData, setFormData] = useState<AddressFormData>({
     fullName: '',
-    email: '',
-    phone: '',
     address: '',
+    landmark: '',
     city: '',
     state: '',
-    zipCode: '',
-    country: 'United States'
+    pincode: '',
+    phone: '',
+    alternatePhone: '',
+    size: '',
+    color: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -59,6 +67,49 @@ const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Product Variants */}
+          {productVariants && (productVariants.colors || productVariants.sizes) && (
+            <div className="space-y-4">
+              <h3 className="font-medium">Product Variants *</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {productVariants.colors && (
+                  <div>
+                    <Label htmlFor="color">Color *</Label>
+                    <select
+                      id="color"
+                      value={formData.color}
+                      onChange={(e) => setFormData(prev => ({ ...prev, color: e.target.value }))}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      required
+                    >
+                      <option value="">Select Color</option>
+                      {productVariants.colors.map((color) => (
+                        <option key={color} value={color}>{color}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                {productVariants.sizes && (
+                  <div>
+                    <Label htmlFor="size">Size *</Label>
+                    <select
+                      id="size"
+                      value={formData.size}
+                      onChange={(e) => setFormData(prev => ({ ...prev, size: e.target.value }))}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      required
+                    >
+                      <option value="">Select Size</option>
+                      {productVariants.sizes.map((size) => (
+                        <option key={size} value={size}>{size}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Personal Information */}
           <div className="space-y-4">
             <h3 className="font-medium flex items-center gap-2">
@@ -78,25 +129,24 @@ const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="email">Email Address *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange('email')}
-                    placeholder="your@email.com"
-                    required
-                  />
-                </div>
-                <div>
                   <Label htmlFor="phone">Phone Number *</Label>
                   <Input
                     id="phone"
                     type="tel"
                     value={formData.phone}
                     onChange={handleInputChange('phone')}
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="+91 98765 43210"
                     required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="alternatePhone">Alternate Number</Label>
+                  <Input
+                    id="alternatePhone"
+                    type="tel"
+                    value={formData.alternatePhone}
+                    onChange={handleInputChange('alternatePhone')}
+                    placeholder="+91 98765 43210"
                   />
                 </div>
               </div>
@@ -111,14 +161,23 @@ const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
             </h3>
             <div className="space-y-4">
               <div>
-                <Label htmlFor="address">Street Address *</Label>
+                <Label htmlFor="address">Address *</Label>
                 <Textarea
                   id="address"
                   value={formData.address}
                   onChange={handleInputChange('address')}
-                  placeholder="Enter your street address"
+                  placeholder="Enter your complete address"
                   rows={2}
                   required
+                />
+              </div>
+              <div>
+                <Label htmlFor="landmark">Landmark</Label>
+                <Input
+                  id="landmark"
+                  value={formData.landmark}
+                  onChange={handleInputChange('landmark')}
+                  placeholder="Near famous landmark"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -133,7 +192,7 @@ const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="state">State/Province *</Label>
+                  <Label htmlFor="state">State *</Label>
                   <Input
                     id="state"
                     value={formData.state}
@@ -143,27 +202,15 @@ const AddressForm = ({ onSubmit, onCancel, isLoading }: AddressFormProps) => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="zipCode">ZIP/Postal Code *</Label>
-                  <Input
-                    id="zipCode"
-                    value={formData.zipCode}
-                    onChange={handleInputChange('zipCode')}
-                    placeholder="12345"
-                    required
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="country">Country *</Label>
-                  <Input
-                    id="country"
-                    value={formData.country}
-                    onChange={handleInputChange('country')}
-                    placeholder="United States"
-                    required
-                  />
-                </div>
+              <div>
+                <Label htmlFor="pincode">Pincode *</Label>
+                <Input
+                  id="pincode"
+                  value={formData.pincode}
+                  onChange={handleInputChange('pincode')}
+                  placeholder="123456"
+                  required
+                />
               </div>
             </div>
           </div>
