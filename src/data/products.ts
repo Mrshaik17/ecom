@@ -18,7 +18,7 @@ export const demoProducts: Product[] = [
     isSale: true,
     isFeatured: true,
     variants: {
-      colors: ['Black', 'Brown', 'White'],
+      colors: ['Black', 'Brown', 'White', 'Green'],
       sizes: ['6', '7', '8', '9', '10', '11']
     },
   },
@@ -42,6 +42,234 @@ export const demoProducts: Product[] = [
       sizes: ['38mm', '42mm']
     },
   },
+  {
+    id: '2',
+    name: 'Luxury Premium Watch',
+    price: 12999,
+    originalPrice: 18999,
+    image: getCategoryImage('clothing', 0),
+    images: [getCategoryImage('clothing', 0)],
+    imageIndices: [0],
+    category: 'clothing',
+    description: 'Exclusive luxury timepiece with gold-plated finish and premium leather strap',
+    rating: 4.9,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Gold', 'Silver', 'Rose Gold'],
+      sizes: ['38mm', '42mm']
+    },
+  },
+  {
+    id: '3',
+    name: 'Under Armour',
+    price: 1599,
+    originalPrice: 2999,
+    image: getCategoryImage('shoes', 4),
+    images: getCategoryImages('shoes', [4, 5, 6]),
+    imageIndices: [4, 5, 6],
+    category: 'shoes',
+    description: 'Under Armour Slides',
+    rating: 4.8,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['6', '7', '8', '9', '10', '11']
+    },
+  },
+  {
+    id: '4',
+    name: 'Richard Mille',
+    price: 3999,
+    originalPrice: 4999,
+    image: getCategoryImage('watches', 0),
+    images: getCategoryImages('watches', [0, 1, 2]),
+    imageIndices: [0, 1, 2],
+    category: 'watches',
+    description: 'Richard Mille RM-07',
+    rating: 4.8,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '5',
+    name: 'Patek Philippe',
+    price: 4999,
+    originalPrice: 6999,
+    image: getCategoryImage('watches', 3),
+    images: getCategoryImages('watches', [3, 4, 5]),
+    imageIndices: [3, 4, 5],
+    category: 'watches',
+    description: 'New model with price updated & Free Patek brand name box, working automatic, Dial Size - 42 mm',
+    rating: 4.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '6',
+    name: 'Patek Phillipe Skeleton Automatic',
+    price: 2999,
+    originalPrice: 3999,
+    image: getCategoryImage('watches', 6),
+    images: getCategoryImages('watches', [6, 7]),
+    imageIndices: [6, 7],
+    category: 'watches',
+    description: 'Patek Phillipe Skeleton Automatic',
+    rating: 4.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '7',
+    name: 'Hublot',
+    price: 2999,
+    originalPrice: 3999,
+    image: getCategoryImage('watches', 8),
+    images: getCategoryImages('watches', [8]),
+    imageIndices: [8],
+    category: 'watches',
+    description: 'Hublot-Bigbang',
+    rating: 4.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '8',
+    name: 'fossil',
+    price: 2999,
+    originalPrice: 4999,
+    image: getCategoryImage('watches', 9),
+    images: getCategoryImages('watches', [9, 10, 11]),
+    imageIndices: [9, 10, 11],
+    category: 'watches',
+    description: 'Fossil Bronson Silver',
+    rating: 4.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '9',
+    name: 'Scuderia Ferrari',
+    price: 2999,
+    originalPrice: 3799,
+    image: getCategoryImage('watches', 12),
+    images: getCategoryImages('watches', [12, 13]),
+    imageIndices: [12, 13],
+    category: 'watches',
+    description: 'A NEW SPORTY WRIST WATCH SERIES, Dial Size - 43mm, Black-Yellow smart fit silicon strap',
+    rating: 4.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black', 'Brown', 'White', 'Green'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '10',
+    name: 'Rolex',
+    price: 2999,
+    originalPrice: 4999,
+    image: getCategoryImage('watches', 14),
+    images: getCategoryImages('watches', [14]),
+    imageIndices: [14],
+    category: 'watches',
+    description: 'Rolex Daytona Chorono-Master copy Edition',
+    rating: 5.0,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Gold'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '11',
+    name: 'Richard Mille',
+    price: 2999,
+    originalPrice: 4999,
+    image: getCategoryImage('watches', 15),
+    images: getCategoryImages('watches', [15, 16, 17]),
+    imageIndices: [15, 16, 17],
+    category: 'watches',
+    description: 'Richard Mille McLaren Deep Sky Blue Special Edition Chronograph Watch',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Blue'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '12',
+    name: 'Rolex Daytona',
+    price: 4999,
+    originalPrice: 5999,
+    image: getCategoryImage('watches', 18),
+    images: getCategoryImages('watches', [18, 19, 20, 21]),
+    imageIndices: [18, 19, 20, 21],
+    category: 'watches',
+    description: 'Rolex Daytona Limited Cermaic',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['White & Black Ceramic'],
+      sizes: ['Case Diameter-42mm, Case Thickness-14mm']
+    },
+  },
+
+
+
+
+
+
+
+
 ];
 
 export const categories = [
