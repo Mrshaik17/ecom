@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Phone, Mail, User } from 'lucide-react';
+import { MapPin, User, QrCode } from 'lucide-react';
 
 interface AddressFormData {
   fullName: string;
@@ -20,16 +20,16 @@ interface AddressFormData {
 }
 
 interface AddressFormProps {
-  onSubmit: (data: AddressFormData) => void;
+  productName: string;
+  productPrice: number;
   onCancel: () => void;
-  isLoading?: boolean;
   productVariants?: {
     colors?: string[];
     sizes?: string[];
   };
 }
 
-const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: AddressFormProps) => {
+const AddressForm = ({ productName, productPrice, onCancel, productVariants }: AddressFormProps) => {
   const [formData, setFormData] = useState<AddressFormData>({
     fullName: '',
     address: '',
@@ -43,9 +43,11 @@ const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: Address
     color: ''
   });
 
+  const [showPayment, setShowPayment] = useState(false);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    setShowPayment(true); // ✅ switch to payment section
   };
 
   const handleInputChange = (field: keyof AddressFormData) => (
@@ -57,6 +59,62 @@ const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: Address
     }));
   };
 
+  if (showPayment) {
+    // ✅ Payment Screen
+    const upiId = "9885522948@ybl"; // 🔹 Your UPI ID
+    const upiLink = `upi://pay?pa=${upiId}&pn=Store&am=${productPrice}&cu=INR&tn=${encodeURIComponent(productName)}`;
+
+    return (
+      <Card className="w-full max-w-lg mx-auto text-center p-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 justify-center">
+            <QrCode className="h-5 w-5" />
+            Complete Payment
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-4 font-medium">
+            Pay ₹{productPrice} for <span className="text-blue-600">{productName}</span>
+          </p>
+
+          {/* ✅ QR Code */}
+          <img
+            src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+              upiLink
+            )}&size=220x220`}
+            alt="UPI QR Code"
+            className="mx-auto mb-4 rounded-lg border p-2"
+          />
+
+          {/* ✅ Show UPI ID */}
+          <p className="mb-2 font-semibold">UPI ID: {upiId}</p>
+
+          <div className="flex flex-col gap-3">
+            {/* UPI Link Button */}
+            <Button asChild>
+              <a href={upiLink}>
+                Try Paying with UPI App
+              </a>
+            </Button>
+
+            {/* Copy UPI ID fallback */}
+            <Button
+              variant="outline"
+              onClick={() => navigator.clipboard.writeText(upiId)}
+            >
+              Copy UPI ID
+            </Button>
+
+            <Button variant="outline" onClick={() => setShowPayment(false)}>
+              Go Back
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // ✅ Shipping Form Screen
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
@@ -79,7 +137,7 @@ const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: Address
                       id="color"
                       value={formData.color}
                       onChange={(e) => setFormData(prev => ({ ...prev, color: e.target.value }))}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border px-3 py-2 text-sm"
                       required
                     >
                       <option value="">Select Color</option>
@@ -96,7 +154,7 @@ const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: Address
                       id="size"
                       value={formData.size}
                       onChange={(e) => setFormData(prev => ({ ...prev, size: e.target.value }))}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full rounded-md border px-3 py-2 text-sm"
                       required
                     >
                       <option value="">Select Size</option>
@@ -222,16 +280,14 @@ const AddressForm = ({ onSubmit, onCancel, isLoading, productVariants }: Address
               variant="outline"
               onClick={onCancel}
               className="flex-1"
-              disabled={isLoading}
             >
               Cancel
             </Button>
             <Button
               type="submit"
               className="flex-1"
-              disabled={isLoading}
             >
-              {isLoading ? 'Processing...' : 'Continue to Payment'}
+              Continue to Payment
             </Button>
           </div>
         </form>

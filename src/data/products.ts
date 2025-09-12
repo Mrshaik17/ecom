@@ -245,7 +245,7 @@ export const demoProducts: Product[] = [
   {
     id: '12',
     name: 'Rolex Daytona',
-    price: 4999,
+    price: 3999,
     originalPrice: 5999,
     image: getCategoryImage('watches', 18),
     images: getCategoryImages('watches', [18, 19, 20, 21]),
@@ -262,12 +262,106 @@ export const demoProducts: Product[] = [
       sizes: ['Case Diameter-42mm, Case Thickness-14mm']
     },
   },
-
-
-
-
-
-
+  {
+    id: '13',
+    name: 'CASIO',
+    price: 1799,
+    originalPrice: 2999,
+    image: getCategoryImage('watches', 22),
+    images: getCategoryImages('watches', [22]),
+    imageIndices: [22],
+    category: 'watches',
+    description: 'CASIO-Chrono',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '14',
+    name: 'Tissot',
+    price: 2499,
+    originalPrice: 2999,
+    image: getCategoryImage('watches', 23),
+    images: getCategoryImages('watches', [23]),
+    imageIndices: [23],
+    category: 'watches',
+    description: 'Tissot 1853 Powermatic 80',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Silver'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '15',
+    name: 'Michael kors',
+    price: 3999,
+    originalPrice: 5999,
+    image: getCategoryImage('watches', 24),
+    images: getCategoryImages('watches', [24,25]),
+    imageIndices: [24,25],
+    category: 'watches',
+    description: 'Tissot 1853 Powermatic 80',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Silver'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '16',
+    name: 'Richard Mille',
+    price: 2999,
+    originalPrice: 4999,
+    image: getCategoryImage('watches', 26),
+    images: getCategoryImages('watches', [26, 27, 28, 29, 30, 31, 32, 33]),
+    imageIndices: [26, 27, 28, 29, 30, 31, 32, 33],
+    category: 'watches',
+    description: 'Dial: Skeleton dial with visible mechanics, Design: Transparent tonneau-shaped case,Richard Mille luxury watch featuring a transparent tonneau-shaped case with exposed screws, a skeletonized dial showcasing intricate mechanical details, and a vibrant blue rubber strap for a sporty yet high-end look. Designed for precision and style, it reflects the brand’s signature futuristic aesthetics.',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Silver'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '18',
+    name: 'Rolex',
+    price: 2099,
+    originalPrice: 2999,
+    image: getCategoryImage('watches', 33),
+    images: getCategoryImages('watches', [33]),
+    imageIndices: [34],
+    category: 'watches',
+    description: 'Rolex Oyster Vintage Gold-Green',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Gold'],
+      sizes: ['Free Size']
+    },
+  },
 
 
 ];
