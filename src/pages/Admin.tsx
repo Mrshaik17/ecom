@@ -254,7 +254,7 @@ const Admin = () => {
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">TechFusion Admin Panel</h1>
+          <h1 className="text-3xl font-bold mb-2">House Of Styles Admin Panel</h1>
           <p className="text-muted-foreground">Manage your products, categories, and coupons</p>
         </div>
 

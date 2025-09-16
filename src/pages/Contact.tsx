@@ -35,7 +35,7 @@ const Contact = () => {
 
   const handleWhatsAppClick = () => {
     const phoneNumber = '1234567890'; // Replace with your actual number
-    const message = 'Hi! I have a question about TechFusion products.';
+    const message = 'Hi! I have a question about House Of Styles products.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -75,8 +75,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <p className="text-muted-foreground">info@techfusion.com</p>
-                    <p className="text-muted-foreground">support@techfusion.com</p>
+                    <p className="text-muted-foreground">info@House Of Styles.com</p>
+                    <p className="text-muted-foreground">support@House Of Styles.com</p>
                   </div>
                 </div>
 

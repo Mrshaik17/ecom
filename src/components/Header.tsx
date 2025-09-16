@@ -26,7 +26,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="bg-gradient-hero text-primary-foreground px-3 py-1.5 rounded-lg font-bold text-xl">
-              TechFusion
+              House Of Styles
             </div>
           </Link>
 

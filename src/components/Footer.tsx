@@ -13,7 +13,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="bg-gradient-hero text-primary-foreground px-3 py-1.5 rounded-lg font-bold text-xl w-fit">
-              TechFusion
+              House Of Styles
             </div>
             <p className="text-muted-foreground text-sm">
               Your trusted destination for premium imported watches, shoes, clothing, and gadgets for men. 
@@ -76,7 +76,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>info@techfusion.com</span>
+                <span>info@House Of Styles.com</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
@@ -108,7 +108,7 @@ const Footer = () => {
         <div className="border-t border-border mt-8 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} TechFusion. All rights reserved.
+              © {currentYear} House Of Styles. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm text-muted-foreground">
               <Link to="/privacy" className="hover:text-primary transition-colors">

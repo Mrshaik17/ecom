@@ -4,7 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import adminRoutes from './routes/adminRoutes.js';
-
 dotenv.config();
 
 const app = express();
@@ -26,7 +25,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/admin', adminRoutes);
 
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`Backend running on http://localhost:${port}`);
+  console.log(`Backend running on http://localhost:${8080}`);
 });
