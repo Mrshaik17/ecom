@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/context/CartContext';
@@ -11,7 +11,7 @@ import { useCoupon } from '@/context/CouponContext';
 const Cart = () => {
   const { items, total, removeItem, updateQuantity, clearCart } = useCart();
   const { toast } = useToast();
-  const { calculateDiscount } = useCoupon();
+  const { calculateDiscount, appliedCoupon } = useCoupon();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
@@ -22,21 +22,46 @@ const Cart = () => {
     updateQuantity(id, newQuantity);
   };
 
-  const handleCheckout = async () => {
+  const handleOrderNow = () => {
     if (items.length === 0) return;
 
-    setIsProcessing(true);
+    const { discount, finalTotal } = calculateDiscount(total);
+    const totalWithTax = finalTotal * 1.18;
     
-    // Simulate checkout process
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Create detailed cart message
+    let message = "🛒 *ORDER REQUEST FROM HOUSE OF STYLES*\n\n";
     
-    clearCart();
-    setIsProcessing(false);
-    
-    toast({
-      title: "Order Successful! 🎉",
-      description: "Your order has been placed successfully. You will receive a confirmation email shortly.",
+    // Add items
+    message += "📦 *ITEMS:*\n";
+    items.forEach((item, index) => {
+      message += `${index + 1}. ${item.name}\n`;
+      message += `   Category: ${item.category}\n`;
+      message += `   Price: ₹${item.price.toLocaleString('en-IN')}\n`;
+      message += `   Quantity: ${item.quantity}\n`;
+      message += `   Subtotal: ₹${(item.price * item.quantity).toLocaleString('en-IN')}\n\n`;
     });
+    
+    // Add pricing details
+    message += "💰 *PRICING BREAKDOWN:*\n";
+    message += `Subtotal: ₹${total.toLocaleString('en-IN')}\n`;
+    
+    // Add coupon info if applied
+    if (appliedCoupon && discount > 0) {
+      message += `🎟️ Coupon Applied: ${appliedCoupon.code}\n`;
+      message += `Discount: -₹${discount.toLocaleString('en-IN')}\n`;
+      message += `After Discount: ₹${finalTotal.toLocaleString('en-IN')}\n`;
+    }
+    
+    message += `Tax (18%): ₹${(finalTotal * 0.18).toLocaleString('en-IN')}\n`;
+    message += `*FINAL TOTAL: ₹${totalWithTax.toLocaleString('en-IN')}*\n\n`;
+    
+    message += "✅ Please confirm this order and provide delivery details.";
+    
+    // WhatsApp number (replace with actual number)
+    const phoneNumber = '1234567890';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   if (items.length === 0) {
@@ -53,7 +78,7 @@ const Cart = () => {
             <Link to="/">
               <Button size="lg" className="bg-gradient-button">
                 Continue Shopping
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <MessageCircle className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </div>
@@ -182,20 +207,11 @@ const Cart = () => {
                 <Button
                   className="w-full bg-gradient-button hover:bg-primary-hover"
                   size="lg"
-                  onClick={handleCheckout}
+                  onClick={handleOrderNow}
                   disabled={isProcessing}
                 >
-                  {isProcessing ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      Proceed to Checkout
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </>
-                  )}
+                  Order Now via WhatsApp
+                  <MessageCircle className="ml-2 h-5 w-5" />
                 </Button>
 
                 <div className="text-center">
