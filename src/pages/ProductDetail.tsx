@@ -7,7 +7,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useProducts } from '@/context/ProductContext';
 import { useCart } from '@/context/CartContext';
-import BuyNowDialog from '@/components/BuyNowDialog';
 import { Product } from '@/components/ProductCard';
 import { toast } from 'sonner';
 
@@ -18,8 +17,6 @@ const ProductDetail = () => {
   const { addItem } = useCart();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
-  const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
-  const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
 
   const product = products.find(p => p.id === productId);
 
@@ -42,14 +39,20 @@ const ProductDetail = () => {
     toast.success('Added to cart successfully!');
   };
 
-  const handleBuyNow = () => {
-    setBuyNowProduct(product);
-    setIsBuyNowDialogOpen(true);
-  };
+  const handleOrderWhatsApp = () => {
+    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const message = `Hi! I'm interested in ordering this product:
+    
+Product: ${product.name}
+Price: ₹${product.price}
+Category: ${product.category}
+${product.variants?.colors ? `Available Colors: ${product.variants.colors.join(', ')}` : ''}
+${product.variants?.sizes ? `Available Sizes: ${product.variants.sizes.join(', ')}` : ''}
 
-  const handleCloseBuyNowDialog = () => {
-    setIsBuyNowDialogOpen(false);
-    setBuyNowProduct(null);
+Please let me know about availability, variants, and delivery details.`;
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const renderStars = (rating: number) => {
@@ -194,13 +197,12 @@ const ProductDetail = () => {
               </div>
               
               <Button
-                onClick={handleBuyNow}
+                onClick={handleOrderWhatsApp}
                 disabled={!product.inStock}
                 size="lg"
-                className="w-full"
-                variant="secondary"
+                className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
-                Buy Now
+                Order via WhatsApp
               </Button>
             </div>
 
@@ -246,13 +248,6 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-
-      {/* Buy Now Dialog */}
-      <BuyNowDialog
-        isOpen={isBuyNowDialogOpen}
-        onClose={handleCloseBuyNowDialog}
-        product={buyNowProduct}
-      />
     </div>
   );
 };

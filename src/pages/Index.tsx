@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import ProductCard, { Product } from '@/components/ProductCard';
-import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
 import { useProducts } from '@/context/ProductContext';
 
@@ -13,8 +12,6 @@ const Index = () => {
   const { addItem } = useCart();
   const { products, categories } = useProducts();
   const [quickViewProduct, setQuickViewProduct] = useState(null);
-  const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
-  const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
 
   const featuredProducts = products.filter(p => p.isFeatured);
   const newArrivals = products.filter(p => p.isNew);
@@ -26,16 +23,6 @@ const Index = () => {
 
   const handleQuickView = (product: any) => {
     setQuickViewProduct(product);
-  };
-
-  const handleBuyNow = (product: Product) => {
-    setBuyNowProduct(product);
-    setIsBuyNowDialogOpen(true);
-  };
-
-  const handleCloseBuyNowDialog = () => {
-    setIsBuyNowDialogOpen(false);
-    setBuyNowProduct(null);
   };
 
   return (
@@ -237,7 +224,6 @@ const Index = () => {
                 product={product}
                 onAddToCart={handleAddToCart}
                 onQuickView={handleQuickView}
-                onBuyNow={handleBuyNow}
               />
             ))}
           </div>
@@ -260,7 +246,6 @@ const Index = () => {
                 product={product}
                 onAddToCart={handleAddToCart}
                 onQuickView={handleQuickView}
-                onBuyNow={handleBuyNow}
               />
               ))}
             </div>
@@ -284,7 +269,6 @@ const Index = () => {
                 product={product}
                 onAddToCart={handleAddToCart}
                 onQuickView={handleQuickView}
-                onBuyNow={handleBuyNow}
               />
               ))}
             </div>
@@ -333,13 +317,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
-      {/* Buy Now Dialog */}
-      <BuyNowDialog
-        isOpen={isBuyNowDialogOpen}
-        onClose={handleCloseBuyNowDialog}
-        product={buyNowProduct}
-      />
     </div>
   );
 };

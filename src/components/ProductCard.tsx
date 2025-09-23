@@ -34,10 +34,9 @@ interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
   onQuickView: (product: Product) => void;
-  onBuyNow?: (product: Product) => void;
 }
 
-const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCardProps) => {
+const ProductCard = ({ product, onAddToCart, onQuickView }: ProductCardProps) => {
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -45,6 +44,23 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
   const discount = product.originalPrice 
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  const handleOrderWhatsApp = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const message = `Hi! I'm interested in ordering this product:
+    
+Product: ${product.name}
+Price: ₹${product.price}
+Category: ${product.category}
+${product.variants?.colors ? `Available Colors: ${product.variants.colors.join(', ')}` : ''}
+${product.variants?.sizes ? `Available Sizes: ${product.variants.sizes.join(', ')}` : ''}
+
+Please let me know about availability and delivery details.`;
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <Card className="group overflow-hidden border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1">
@@ -118,17 +134,14 @@ const ProductCard = ({ product, onAddToCart, onQuickView, onBuyNow }: ProductCar
               <ShoppingCart className="h-3 w-3 mr-1" />
               Add
             </Button>
-            {onBuyNow && (
-              <Button
-                className="flex-1 bg-secondary hover:bg-secondary/80 text-sm text-foreground"
-                onClick={() => onBuyNow(product)}
-                disabled={!product.inStock}
-                size="sm"
-                variant="secondary"
-              >
-                Buy Now
-              </Button>
-            )}
+            <Button
+              className="flex-1 bg-green-600 hover:bg-green-700 text-white text-sm"
+              onClick={handleOrderWhatsApp}
+              disabled={!product.inStock}
+              size="sm"
+            >
+              Order Now
+            </Button>
           </div>
         </div>
       </div>

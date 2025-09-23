@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import ProductCard, { Product } from '@/components/ProductCard';
-import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
 import { useProducts } from '@/context/ProductContext';
 
@@ -214,10 +213,9 @@ const Categories = () => {
               {sortedProducts.map((product) => (
                 <ProductCard
                   key={product.id}
-                  product={product}
-                  onAddToCart={handleAddToCart}
-                  onQuickView={handleQuickView}
-                  onBuyNow={handleBuyNow}
+                product={product}
+                onAddToCart={handleAddToCart}
+                onQuickView={handleQuickView}
                 />
               ))}
             </div>
@@ -239,12 +237,6 @@ const Categories = () => {
         </div>
       </section>
       
-      {/* Buy Now Dialog */}
-      <BuyNowDialog
-        isOpen={isBuyNowDialogOpen}
-        onClose={handleCloseBuyNowDialog}
-        product={buyNowProduct}
-      />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductCard, { Product } from '@/components/ProductCard';
-import BuyNowDialog from '@/components/BuyNowDialog';
 import { useCart } from '@/context/CartContext';
 import { useProducts } from '@/context/ProductContext';
 
@@ -11,8 +10,7 @@ const CategoryPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
   const { addItem } = useCart();
   const { products, categories } = useProducts();
-  const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
-  const [isBuyNowDialogOpen, setIsBuyNowDialogOpen] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   
   const category = categories.find(cat => cat.id === categoryId);
   const categoryProducts = products.filter(product => product.category === categoryId);
@@ -23,16 +21,6 @@ const CategoryPage = () => {
 
   const handleQuickView = (product: any) => {
     // Quick view functionality can be added here
-  };
-
-  const handleBuyNow = (product: Product) => {
-    setBuyNowProduct(product);
-    setIsBuyNowDialogOpen(true);
-  };
-
-  const handleCloseBuyNowDialog = () => {
-    setIsBuyNowDialogOpen(false);
-    setBuyNowProduct(null);
   };
 
   if (!category) {
@@ -95,10 +83,9 @@ const CategoryPage = () => {
                 {categoryProducts.map((product) => (
                   <ProductCard
                     key={product.id}
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    onQuickView={handleQuickView}
-                    onBuyNow={handleBuyNow}
+                product={product}
+                onAddToCart={handleAddToCart}
+                onQuickView={handleQuickView}
                   />
                 ))}
               </div>
@@ -156,13 +143,6 @@ const CategoryPage = () => {
           </div>
         </section>
       )}
-      
-      {/* Buy Now Dialog */}
-      <BuyNowDialog
-        isOpen={isBuyNowDialogOpen}
-        onClose={handleCloseBuyNowDialog}
-        product={buyNowProduct}
-      />
     </div>
   );
 };

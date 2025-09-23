@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import QRCode from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 import { Button } from "@/components/ui/button";
 
 interface PaymentPageProps {
@@ -27,7 +27,7 @@ const PaymentPage = ({ amount }: PaymentPageProps) => {
       <h2 className="text-2xl font-bold mb-4">Complete Your Payment</h2>
       
       {/* QR Code */}
-      <QRCode value={upiUrl} size={200} />
+      <QRCodeSVG value={upiUrl} size={200} />
 
       <p className="mt-4">Scan QR or click below:</p>
 
