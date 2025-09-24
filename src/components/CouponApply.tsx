@@ -91,15 +91,15 @@ const CouponApply = ({ total }: CouponApplyProps) => {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span>Subtotal:</span>
-            <span>${total.toFixed(2)}</span>
+            <span>₹{total.toLocaleString('en-IN')}</span>
           </div>
           <div className="flex justify-between text-success">
             <span>Discount ({appliedCoupon.code}):</span>
-            <span>-${discount.toFixed(2)}</span>
+            <span>-₹{discount.toLocaleString('en-IN')}</span>
           </div>
           <div className="flex justify-between font-bold text-lg border-t pt-2">
             <span>Total:</span>
-            <span>${finalTotal.toFixed(2)}</span>
+            <span>₹{finalTotal.toLocaleString('en-IN')}</span>
           </div>
         </div>
       )}

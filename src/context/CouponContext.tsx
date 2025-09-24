@@ -44,7 +44,6 @@ const initialCoupons: Coupon[] = [
     description: '15% Off Your Order',
     type: 'percentage',
     value: 15,
-    minOrderValue: 500,
     isActive: true,
     usageLimit: 50,
     usageCount: 0,

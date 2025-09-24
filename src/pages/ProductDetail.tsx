@@ -7,14 +7,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useProducts } from '@/context/ProductContext';
 import { useCart } from '@/context/CartContext';
+import { useCoupon } from '@/context/CouponContext';
 import { Product } from '@/components/ProductCard';
 import { toast } from 'sonner';
+import CouponApply from '@/components/CouponApply';
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
   const { addItem } = useCart();
+  const { appliedCoupon, calculateDiscount } = useCoupon();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -41,15 +44,32 @@ const ProductDetail = () => {
 
   const handleOrderWhatsApp = () => {
     const phoneNumber = '1234567890'; // Replace with your WhatsApp number
-    const message = `Hi! I'm interested in ordering this product:
+    const { discount, finalTotal } = calculateDiscount(product.price);
     
-Product: ${product.name}
-Price: ₹${product.price}
-Category: ${product.category}
-${product.variants?.colors ? `Available Colors: ${product.variants.colors.join(', ')}` : ''}
-${product.variants?.sizes ? `Available Sizes: ${product.variants.sizes.join(', ')}` : ''}
-
-Please let me know about availability, variants, and delivery details.`;
+    let message = `🛒 *ORDER REQUEST FROM HOUSE OF STYLES*\n\n`;
+    message += `📦 *PRODUCT DETAILS:*\n`;
+    message += `Product: ${product.name}\n`;
+    message += `Category: ${product.category}\n`;
+    message += `Original Price: ₹${product.price.toLocaleString('en-IN')}\n`;
+    
+    if (appliedCoupon && discount > 0) {
+      message += `\n🎟️ *COUPON APPLIED:*\n`;
+      message += `Coupon Code: ${appliedCoupon.code}\n`;
+      message += `Discount: ${appliedCoupon.value}% off\n`;
+      message += `Discount Amount: -₹${discount.toLocaleString('en-IN')}\n`;
+      message += `Final Price: ₹${finalTotal.toLocaleString('en-IN')}\n`;
+    } else {
+      message += `Price: ₹${product.price.toLocaleString('en-IN')}\n`;
+    }
+    
+    if (product.variants?.colors) {
+      message += `Available Colors: ${product.variants.colors.join(', ')}\n`;
+    }
+    if (product.variants?.sizes) {
+      message += `Available Sizes: ${product.variants.sizes.join(', ')}\n`;
+    }
+    
+    message += `\n✅ Please confirm this order and provide delivery details.`;
     
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -173,6 +193,12 @@ Please let me know about availability, variants, and delivery details.`;
               <p className="text-muted-foreground leading-relaxed">
                 {product.description}
               </p>
+            </div>
+
+            {/* Coupon Section */}
+            <div>
+              <h3 className="text-lg font-semibold mb-3">Have a Coupon?</h3>
+              <CouponApply total={product.price} />
             </div>
 
             {/* Actions */}
