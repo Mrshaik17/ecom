@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useProducts } from '@/context/ProductContext';
 import { useCoupon, Coupon } from '@/context/CouponContext';
+import { COUPONS_ENABLED } from '@/config/coupons';
 
 interface Product {
   id: string;
@@ -298,8 +299,12 @@ const Admin = () => {
               <div className="flex items-center space-x-2">
                 <Tag className="h-8 w-8 text-warning" />
                 <div>
-                  <p className="text-2xl font-bold">{coupons.filter(c => c.isActive).length}</p>
-                  <p className="text-sm text-muted-foreground">Active Coupons</p>
+                  <p className="text-2xl font-bold">
+                    {COUPONS_ENABLED ? coupons.filter(c => c.isActive).length : 'Disabled'}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {COUPONS_ENABLED ? 'Active Coupons' : 'Coupons Disabled'}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -316,10 +321,12 @@ const Admin = () => {
             <Plus className="h-4 w-4 mr-2" />
             Add Category
           </Button>
-          <Button variant="outline" onClick={() => setShowAddCoupon(true)}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add Coupon
-          </Button>
+          {COUPONS_ENABLED && (
+            <Button variant="outline" onClick={() => setShowAddCoupon(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Coupon
+            </Button>
+          )}
         </div>
 
         {/* Add Product Form */}
@@ -685,82 +692,84 @@ const Admin = () => {
         )}
 
         {/* Coupons List */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>All Coupons ({coupons.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {coupons.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No coupons yet. Click "Add Coupon" to create one.
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {coupons.map((coupon) => (
-                  <div key={coupon.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2">
-                        <Badge 
-                          variant={coupon.isActive ? "secondary" : "outline"} 
-                          className={coupon.isActive ? "bg-primary text-primary-foreground" : ""}
+        {COUPONS_ENABLED && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>All Coupons ({coupons.length})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {coupons.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  No coupons yet. Click "Add Coupon" to create one.
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {coupons.map((coupon) => (
+                    <div key={coupon.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <Badge 
+                            variant={coupon.isActive ? "secondary" : "outline"} 
+                            className={coupon.isActive ? "bg-primary text-primary-foreground" : ""}
+                          >
+                            {coupon.code}
+                          </Badge>
+                          {!coupon.isActive && (
+                            <Badge variant="secondary" className="text-muted-foreground">
+                              Disabled
+                            </Badge>
+                          )}
+                          {coupon.expiresAt && new Date(coupon.expiresAt) < new Date() && (
+                            <Badge variant="destructive">
+                              Expired
+                            </Badge>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium">{coupon.description}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {coupon.type === 'percentage' ? `${coupon.value}% off` : 
+                             coupon.type === 'fixed' ? `₹${coupon.value} off` :
+                             coupon.type === 'bogo' ? 'Buy 1 Get 1' : 'Free Shipping'}
+                            {coupon.minOrderValue && ` (Min: ₹${coupon.minOrderValue})`}
+                            {coupon.expiresAt && ` • Expires: ${new Date(coupon.expiresAt).toLocaleDateString()}`}
+                            {coupon.usageLimit && ` • Limit: ${coupon.usageLimit}`}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Used: {coupon.usageCount} times
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEditCoupon(coupon)}
                         >
-                          {coupon.code}
-                        </Badge>
-                        {!coupon.isActive && (
-                          <Badge variant="secondary" className="text-muted-foreground">
-                            Disabled
-                          </Badge>
-                        )}
-                        {coupon.expiresAt && new Date(coupon.expiresAt) < new Date() && (
-                          <Badge variant="destructive">
-                            Expired
-                          </Badge>
-                        )}
-                      </div>
-                      <div>
-                        <p className="font-medium">{coupon.description}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {coupon.type === 'percentage' ? `${coupon.value}% off` : 
-                           coupon.type === 'fixed' ? `₹${coupon.value} off` :
-                           coupon.type === 'bogo' ? 'Buy 1 Get 1' : 'Free Shipping'}
-                          {coupon.minOrderValue && ` (Min: ₹${coupon.minOrderValue})`}
-                          {coupon.expiresAt && ` • Expires: ${new Date(coupon.expiresAt).toLocaleDateString()}`}
-                          {coupon.usageLimit && ` • Limit: ${coupon.usageLimit}`}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Used: {coupon.usageCount} times
-                        </p>
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={coupon.isActive ? "secondary" : "default"}
+                          onClick={() => handleToggleCouponStatus(coupon.id)}
+                        >
+                          {coupon.isActive ? 'Disable' : 'Enable'}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => handleDeleteCoupon(coupon.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="flex space-x-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleEditCoupon(coupon)}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant={coupon.isActive ? "secondary" : "default"}
-                        onClick={() => handleToggleCouponStatus(coupon.id)}
-                      >
-                        {coupon.isActive ? 'Disable' : 'Enable'}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => handleDeleteCoupon(coupon.id)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
         {/* Products List */}
         <Card>

@@ -12,8 +12,13 @@ interface CouponApplyProps {
 
 const CouponApply = ({ total }: CouponApplyProps) => {
   const [couponCode, setCouponCode] = useState('');
-  const { appliedCoupon, applyCoupon, removeCoupon, calculateDiscount } = useCoupon();
+  const { appliedCoupon, applyCoupon, removeCoupon, calculateDiscount, isCouponsEnabled } = useCoupon();
   const { toast } = useToast();
+
+  // Don't render if coupons are disabled
+  if (!isCouponsEnabled()) {
+    return null;
+  }
 
   const handleApplyCoupon = () => {
     if (!couponCode.trim()) return;

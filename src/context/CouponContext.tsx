@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
+import { COUPONS_ENABLED, DEFAULT_COUPONS, CouponConfig } from '@/config/coupons';
 
 export interface Coupon {
   id: string;
@@ -26,29 +27,6 @@ type CouponAction =
   | { type: 'UPDATE_COUPON'; payload: Coupon }
   | { type: 'DELETE_COUPON'; payload: string }
   | { type: 'TOGGLE_COUPON_STATUS'; payload: string };
-
-const initialCoupons: Coupon[] = [
-  {
-    id: '1',
-    code: 'SAVE10',
-    description: '10% Off on Any Item',
-    type: 'percentage',
-    value: 10,
-    isActive: true,
-    usageLimit: 100,
-    usageCount: 0,
-  },
-  {
-    id: '2',
-    code: 'SAVE15',
-    description: '15% Off Your Order',
-    type: 'percentage',
-    value: 15,
-    isActive: true,
-    usageLimit: 50,
-    usageCount: 0,
-  },
-];
 
 const couponReducer = (state: CouponState, action: CouponAction): CouponState => {
   switch (action.type) {
@@ -111,13 +89,14 @@ interface CouponContextType extends CouponState {
   updateCoupon: (coupon: Coupon) => void;
   toggleCouponStatus: (couponId: string) => void;
   calculateDiscount: (total: number) => { discount: number; finalTotal: number };
+  isCouponsEnabled: () => boolean;
 }
 
 const CouponContext = createContext<CouponContextType | undefined>(undefined);
 
 export const CouponProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(couponReducer, {
-    coupons: initialCoupons,
+    coupons: DEFAULT_COUPONS,
     appliedCoupon: null,
   });
 
@@ -126,6 +105,8 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const applyCoupon = (code: string): boolean => {
+    if (!COUPONS_ENABLED) return false;
+    
     const coupon = state.coupons.find(c => 
       c.code.toLowerCase() === code.toLowerCase() && c.isActive
     );
@@ -153,8 +134,12 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
     dispatch({ type: 'TOGGLE_COUPON_STATUS', payload: couponId });
   };
 
+  const isCouponsEnabled = (): boolean => {
+    return COUPONS_ENABLED;
+  };
+
   const calculateDiscount = (total: number): { discount: number; finalTotal: number } => {
-    if (!state.appliedCoupon) {
+    if (!COUPONS_ENABLED || !state.appliedCoupon) {
       return { discount: 0, finalTotal: total };
     }
 
@@ -206,6 +191,7 @@ export const CouponProvider = ({ children }: { children: ReactNode }) => {
         updateCoupon,
         toggleCouponStatus,
         calculateDiscount,
+        isCouponsEnabled,
       }}
     >
       {children}

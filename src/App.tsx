@@ -26,6 +26,10 @@ import NewArrivals from "./pages/NewArrivals";
 import Login from "./LS/Login";
 import ResetPassword from "./LS/ResetPassword"; // ✅ add reset password page
 import ForgotPassword from "./LS/ForgotPassword";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import ShippingInfo from "./pages/ShippingInfo";
+import ReturnsRefunds from "./pages/ReturnsRefunds";
 
 // ✅ New: Admin Login page & route protection for Admin
 import AdminLogin from "@/pages/AdminLogin";
@@ -225,6 +229,60 @@ const App = () => {
                     <WhatsAppButton />
                   </>
                 </PrivateRoute>
+              }
+            />
+
+            {/* Policy Pages */}
+            <Route
+              path="/privacy-policy"
+              element={
+                <>
+                  <Header />
+                  <main className="flex-1">
+                    <PrivacyPolicy />
+                  </main>
+                  <Footer />
+                  <WhatsAppButton />
+                </>
+              }
+            />
+            <Route
+              path="/terms-of-service"
+              element={
+                <>
+                  <Header />
+                  <main className="flex-1">
+                    <TermsOfService />
+                  </main>
+                  <Footer />
+                  <WhatsAppButton />
+                </>
+              }
+            />
+            <Route
+              path="/shipping-info"
+              element={
+                <>
+                  <Header />
+                  <main className="flex-1">
+                    <ShippingInfo />
+                  </main>
+                  <Footer />
+                  <WhatsAppButton />
+                </>
+              }
+            />
+            <Route
+              path="/returns-refunds"
+              element={
+                <>
+                  <Header />
+                  <main className="flex-1">
+                    <ReturnsRefunds />
+                  </main>
+                  <Footer />
+                  <WhatsAppButton />
+                </>
               }
             />
 
