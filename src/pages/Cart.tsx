@@ -26,7 +26,6 @@ const Cart = () => {
     if (items.length === 0) return;
 
     const { discount, finalTotal } = calculateDiscount(total);
-    const totalWithTax = finalTotal * 1.18;
     
     // Create detailed cart message
     let message = "🛒 *ORDER REQUEST FROM HOUSE OF STYLES*\n\n";
@@ -52,8 +51,7 @@ const Cart = () => {
       message += `After Discount: ₹${finalTotal.toLocaleString('en-IN')}\n`;
     }
     
-    message += `Tax (18%): ₹${(finalTotal * 0.18).toLocaleString('en-IN')}\n`;
-    message += `*FINAL TOTAL: ₹${totalWithTax.toLocaleString('en-IN')}*\n\n`;
+    message += `*FINAL TOTAL: ₹${finalTotal.toLocaleString('en-IN')}*\n\n`;
     
     message += "✅ Please confirm this order and provide delivery details.";
     
@@ -192,14 +190,10 @@ const Cart = () => {
                     <span>Shipping</span>
                     <span className="text-success">Free</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span>Tax (18%)</span>
-                    <span>₹{(calculateDiscount(total).finalTotal * 0.18).toLocaleString('en-IN')}</span>
-                  </div>
                   <div className="border-t pt-2">
                     <div className="flex justify-between font-bold text-lg">
                       <span>Total</span>
-                      <span>₹{(calculateDiscount(total).finalTotal * 1.18).toLocaleString('en-IN')}</span>
+                      <span>₹{calculateDiscount(total).finalTotal.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
                 </div>
