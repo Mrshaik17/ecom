@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown, User, Package, HelpCircle, LogOut } from 'lucide-react';
+import { ChevronDown, User, HelpCircle, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -8,12 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useOrder } from '@/context/OrderContext';
 import { auth } from '../LS/firebase';  // ✅ make sure this path is correct
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const UserAccountDropdown = () => {
-  const { orders } = useOrder();
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,13 +57,8 @@ const UserAccountDropdown = () => {
         </div>
         
         <DropdownMenuItem className="cursor-pointer">
-          <Package className="h-4 w-4 mr-2" />
-          <div>
-            <div className="text-sm">Track Orders</div>
-            <div className="text-xs text-muted-foreground">
-              {orders.length} active orders
-            </div>
-          </div>
+          <User className="h-4 w-4 mr-2" />
+          <div className="text-sm">My Account</div>
         </DropdownMenuItem>
         
         <DropdownMenuItem className="cursor-pointer">

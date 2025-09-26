@@ -61,22 +61,10 @@ const ShippingInfo = () => {
               <Package className="h-6 w-6 text-primary" />
               <h2 className="text-2xl font-semibold">Shipping Charges</h2>
             </div>
-            <div className="space-y-4">
-              <div className="border rounded-lg p-4">
-                <h3 className="font-semibold mb-2">Standard Shipping</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• ₹0 - Free shipping on orders above ₹1,000</li>
-                  <li>• ₹99 - Orders below ₹1,000</li>
-                  <li>• ₹149 - Cash on Delivery orders</li>
-                </ul>
-              </div>
-              <div className="border rounded-lg p-4">
-                <h3 className="font-semibold mb-2">Express Shipping</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• ₹199 - Express delivery (1-2 days)</li>
-                  <li>• Available in Delhi, Mumbai, Bangalore, Hyderabad, Chennai, Pune</li>
-                </ul>
-              </div>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h3 className="font-semibold text-green-800 mb-2">✅ Standard Delivery</h3>
+              <p className="text-lg font-bold text-green-700">FREE SHIPPING</p>
+              <p className="text-sm text-green-600">On all orders across India</p>
             </div>
           </section>
 

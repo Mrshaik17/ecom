@@ -35,7 +35,35 @@ const TermsOfService = () => {
               <li>We reserve the right to refuse or cancel any order</li>
               <li>Prices are subject to change without notice</li>
               <li>Payment must be completed before order processing</li>
+              <li>No returns accepted if you simply don't like the product</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Returns & Exchange Policy</h2>
+            <div className="bg-warning/10 border border-warning/20 rounded-lg p-4 mb-4">
+              <h3 className="font-semibold text-warning mb-2">⚠️ Important Return Policy</h3>
+              <p className="mb-2">Returns and exchanges are ONLY available if:</p>
+              <ul className="list-disc pl-6 mb-2">
+                <li>We dispatch wrong size or color from our side</li>
+                <li>Product is damaged due to our packaging/handling</li>
+                <li>You receive a different product than ordered</li>
+              </ul>
+              <p className="text-sm text-muted-foreground">
+                <strong>No returns if you don't like the product or it's your fault.</strong>
+              </p>
+            </div>
+            
+            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+              <h3 className="font-semibold text-destructive mb-2">📹 360° Video Required</h3>
+              <p className="mb-2">For ANY return or exchange request:</p>
+              <ul className="list-disc pl-6 text-sm">
+                <li>Mandatory 360-degree uncut video of the product required</li>
+                <li>Video must be continuous without any cuts or editing</li>
+                <li>Our team will verify the video for authenticity</li>
+                <li>No returns/exchanges processed without genuine video</li>
+              </ul>
+            </div>
           </section>
 
           <section>
@@ -46,7 +74,19 @@ const TermsOfService = () => {
               <li>Maintain the security of your account</li>
               <li>Use our services only for lawful purposes</li>
               <li>Not engage in any fraudulent activities</li>
+              <li>Provide uncut 360° video for any return/exchange claims</li>
             </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Refund Policy</h2>
+            <p className="mb-4 text-destructive font-semibold">
+              Refunds are generally not available. We prefer exchanges when eligible.
+            </p>
+            <p className="mb-4">
+              In exceptional cases where refund is considered, it will be subject to our verification process 
+              and management approval.
+            </p>
           </section>
 
           <section>
@@ -62,14 +102,6 @@ const TermsOfService = () => {
             <p className="mb-4">
               House Of Styles shall not be liable for any indirect, incidental, special, or consequential damages 
               resulting from the use or inability to use our services or products.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">Modifications</h2>
-            <p className="mb-4">
-              We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. 
-              Your continued use of our services constitutes acceptance of the modified terms.
             </p>
           </section>
 

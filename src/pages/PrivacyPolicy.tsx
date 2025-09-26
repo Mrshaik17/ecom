@@ -22,6 +22,8 @@ const PrivacyPolicy = () => {
               <li>Contact us for customer support</li>
               <li>Subscribe to our newsletter</li>
               <li>Interact with our website or mobile app</li>
+              <li>Provide shipping and billing information</li>
+              <li>Send us videos for return/exchange verification</li>
             </ul>
           </section>
 
@@ -31,9 +33,23 @@ const PrivacyPolicy = () => {
             <ul className="list-disc pl-6 mb-4">
               <li>Process and fulfill your orders</li>
               <li>Provide customer service and support</li>
+              <li>Verify returns and exchanges through video analysis</li>
               <li>Send you promotional communications (with your consent)</li>
               <li>Improve our products and services</li>
               <li>Prevent fraud and ensure security</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Video Verification</h2>
+            <p className="mb-4">
+              For return and exchange requests, we require 360-degree uncut videos of products. These videos:
+            </p>
+            <ul className="list-disc pl-6 mb-4">
+              <li>Are used solely for verifying product condition and authenticity</li>
+              <li>Are reviewed by our quality control team</li>
+              <li>Are securely stored and not shared with third parties</li>
+              <li>May be retained for record-keeping purposes</li>
             </ul>
           </section>
 

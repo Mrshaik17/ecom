@@ -76,15 +76,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                <span>info@House Of Styles.com</span>
+                <span>info@houseofstyles.com</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 12345 67890</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>New York, USA</span>
+                <span>Mumbai, India</span>
               </div>
             </div>
             
@@ -119,6 +119,9 @@ const Footer = () => {
               </Link>
               <Link to="/shipping" className="hover:text-primary transition-colors">
                 Shipping Info
+              </Link>
+              <Link to="/returns" className="hover:text-primary transition-colors">
+                Returns & Refunds
               </Link>
             </div>
           </div>
