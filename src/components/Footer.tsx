@@ -111,16 +111,16 @@ const Footer = () => {
               © {currentYear} House Of Styles. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm text-muted-foreground">
-              <Link to="/privacy" className="hover:text-primary transition-colors">
+              <Link to="/privacy-policy" className="hover:text-primary transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="hover:text-primary transition-colors">
+              <Link to="/terms-of-service" className="hover:text-primary transition-colors">
                 Terms of Service
               </Link>
-              <Link to="/shipping" className="hover:text-primary transition-colors">
+              <Link to="/shipping-info" className="hover:text-primary transition-colors">
                 Shipping Info
               </Link>
-              <Link to="/returns" className="hover:text-primary transition-colors">
+              <Link to="/returns-refunds" className="hover:text-primary transition-colors">
                 Returns & Refunds
               </Link>
             </div>
