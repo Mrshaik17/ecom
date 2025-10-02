@@ -32,7 +32,18 @@ import watch31 from './31.jpg';
 import watch32 from './32.jpg';
 import watch33 from './33.jpg';
 import watch34 from './34.jpg';
-
+import watch35 from './35.jpg';
+import watch36 from './36.jpg';
+import watch37 from './37.jpg';
+import watch38 from './38.jpg';
+import watch39 from './39.jpg';
+import watch40 from './40.jpg';
+import watch41 from './41.jpg';
+import watch42 from './42.jpg';
+import watch43 from './43.jpg';
+import watch44 from './44.jpg';
+import watch45 from './45.jpg';
+import watch46 from './46.jpg';
 
 
 export const watchImages = [
@@ -69,7 +80,19 @@ export const watchImages = [
   watch31,
   watch32,
   watch33,
-  watch34
+  watch34,
+  watch35,
+  watch36,
+  watch37,
+  watch38,
+  watch39,
+  watch40,
+  watch41,
+  watch42,
+  watch43,
+  watch44,
+  watch45,
+  watch46
  
 
   // Add more watch images here as you import them
@@ -82,4 +105,4 @@ export const watchImages = [
 export { watch1, watch2, watch3, watch4, watch5, watch6, watch7, watch8, watch9, watch10, watch11, watch12, watch13, watch14, watch15 };
 export { watch16, watch17, watch18, watch19, watch20, watch21, watch22, watch23, watch24 };
 export { watch25, watch26, watch27, watch28, watch29, watch30, watch31, watch32, watch33 };
-export { watch34 };
+export { watch34, watch35, watch36, watch37, watch38, watch39, watch40, watch41, watch42, watch43, watch44, watch45, watch46 };

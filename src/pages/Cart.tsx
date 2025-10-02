@@ -56,7 +56,7 @@ const Cart = () => {
     message += "✅ Please confirm this order and provide delivery details.";
     
     // WhatsApp number (replace with actual number)
-    const phoneNumber = '1234567890';
+    const phoneNumber = '9885522948';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     
     window.open(whatsappUrl, '_blank');

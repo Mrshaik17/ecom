@@ -362,7 +362,106 @@ export const demoProducts: Product[] = [
       sizes: ['Free Size']
     },
   },
-
+  {
+    id: '19',
+    name: 'Rolex',
+    price: 8999,
+    originalPrice: 10009,
+    image: getCategoryImage('watches', 34),
+    images: getCategoryImages('watches', [34, 35]),
+    imageIndices: [35],
+    category: 'watches',
+    description: 'Rolex GMT II Meteorite Dial, Trusted Japanese Automatic High End Machinery, Rotating Ceramic Bezel',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Silver & Blue'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '20',
+    name: 'Fossil',
+    price: 2199,
+    originalPrice: 2499,
+    image: getCategoryImage('watches', 36),
+    images: getCategoryImages('watches', [36, 37]),
+    imageIndices: [36],
+    category: 'watches',
+    description: 'Fossil, Working Chronograph-1 minute & 60 minutes stop watch reset-Black soft leather smart fitting detachable lock strap.',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Black'],
+      sizes: ['43mm']
+    },
+  },
+  {
+    id: '21',
+    name: 'Omega',
+    price: 4999,
+    originalPrice: 5499,
+    image: getCategoryImage('watches', 38),
+    images: getCategoryImages('watches', [38, 39]),
+    imageIndices: [38],
+    category: 'watches',
+    description: 'Rolex Oyster Perpetual Daytona Chosmograph',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Blue'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '22',
+    name: 'Hublot',
+    price: 2999,
+    originalPrice: 3499,
+    image: getCategoryImage('watches', 40),
+    images: getCategoryImages('watches', [40, 41, 42, 43]),
+    imageIndices: [40],
+    category: 'watches',
+    description: 'Hublot-Automatic',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Blue'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '23',
+    name: 'ROLEX',
+    price: 2999,
+    originalPrice: 3499,
+    image: getCategoryImage('watches', 44),
+    images: getCategoryImages('watches', [44, 45]),
+    imageIndices: [4],
+    category: 'watches',
+    description: 'Rolex Land-Dweller, Stainless Steel Case, Fluted Bezel, Rolex Screwdown Crown & Linked Bracelet & Sapphire Quality Crystal, Comes in White Rolesor, Platinum & Everosegold with Elegant Land-Dweller designed dial,Steel Body, ⁠Chinese Movement without detailing,Butterfly lock,⁠Mineral Glass',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Blue'],
+      sizes: ['Free Size']
+    },
+  },
 
 ];
 

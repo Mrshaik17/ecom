@@ -47,7 +47,7 @@ const ProductCard = ({ product, onAddToCart, onQuickView }: ProductCardProps) =>
 
   const handleOrderWhatsApp = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const phoneNumber = '9885522948'; // Replace with your WhatsApp number
     const message = `Hi! I'm interested in ordering this product:
     
 Product: ${product.name}

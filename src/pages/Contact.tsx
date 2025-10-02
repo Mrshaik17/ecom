@@ -34,7 +34,7 @@ const Contact = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = '1234567890'; // Replace with your actual number
+    const phoneNumber = '9885522948'; // Replace with your actual number
     const message = 'Hi! I have a question about House Of Styles products.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

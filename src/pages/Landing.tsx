@@ -19,6 +19,7 @@ import shoe2 from '@/assets/shoes/2.jpg';
 import shoe3 from '@/assets/shoes/3.jpg';
 import casualShirt from '@/assets/clothing/casual-shirt-1.jpg';
 import earbuds from '@/assets/gadgets/wireless-earbuds-1.jpg';
+import { watch15, watch17, watch20 } from '@/assets/watches';
 
 // Animation variants
 const fadeInUp = {
@@ -68,7 +69,7 @@ const Landing = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   const categories = [
-    { name: 'Watches', image: watch1 },
+    { name: 'Watches', image: watch17 },
     { name: 'Shoes', image: shoe1 },
     { name: 'Fashion', image: casualShirt },
     { name: 'Electronics', image: earbuds },
@@ -201,15 +202,15 @@ const Landing = () => {
         />
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-white"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Your Premium Store
+            House Of Styles
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-3xl text-muted-foreground mb-12 max-w-3xl mx-auto"
+            className="text-xl md:text-3xl text-gray-foreground mb-12 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

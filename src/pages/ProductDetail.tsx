@@ -43,7 +43,7 @@ const ProductDetail = () => {
   };
 
   const handleOrderWhatsApp = () => {
-    const phoneNumber = '1234567890'; // Replace with your WhatsApp number
+    const phoneNumber = '9885522948'; // Replace with your WhatsApp number
     const { discount, finalTotal } = calculateDiscount(product.price);
     
     let message = `🛒 *ORDER REQUEST FROM HOUSE OF STYLES*\n\n`;
