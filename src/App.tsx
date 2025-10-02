@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 // Pages
+import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
@@ -72,8 +73,8 @@ const App = () => {
         <Sonner />
         <div className="min-h-screen flex flex-col">
           <Routes>
-            {/* Root redirect */}
-            <Route path="/" element={<Navigate to={user ? "/home" : "/login"} replace />} />
+            {/* Landing Page (public) */}
+            <Route path="/" element={<Landing />} />
 
             {/* Login (only show when logged out) */}
             <Route path="/login" element={user ? <Navigate to="/home" replace /> : <Login />} />
