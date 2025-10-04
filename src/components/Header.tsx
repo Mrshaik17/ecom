@@ -12,7 +12,7 @@ const Header = () => {
   const location = window.location;
 
   const navigation = [
-    { name: 'Home', href: '/' },
+    { name: 'Home', href: '/home' },
     { name: 'New Arrivals', href: '/new-arrivals' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -24,7 +24,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/home" className="flex items-center space-x-2">
             <div className="bg-gradient-hero text-primary-foreground px-3 py-1.5 rounded-lg font-bold text-xl">
               House Of Styles
             </div>

@@ -69,12 +69,14 @@ const Landing = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   const categories = [
-    { name: 'Watches', image: watch17 },
-    { name: 'Shoes', image: shoe1 },
-    { name: 'Fashion', image: casualShirt },
-    { name: 'Electronics', image: earbuds },
-    { name: 'Accessories', image: watch2 },
-    { name: 'Lifestyle', image: shoe2 },
+    'Watches',
+    'Shirts', 
+    'Pants',
+    'Tracks',
+    'Shoes',
+    'Premium Collection',
+    'Slides/Slippers',
+    'Analog Watches',
   ];
 
   const features = [
@@ -169,20 +171,17 @@ const Landing = () => {
               House Of Styles
             </motion.div>
             <nav className="hidden md:flex items-center space-x-6">
-              <a href="#features" className="text-muted-foreground hover:text-primary transition-colors">
-                Features
+              <a href="#hero" className="text-muted-foreground hover:text-primary transition-colors">
+                Home
               </a>
               <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">
-                Categories
-              </a>
-              <a href="#gallery" className="text-muted-foreground hover:text-primary transition-colors">
-                Gallery
+                Shop / Categories
               </a>
               <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
-                About
+                About Us
               </a>
               <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
-                Contact
+                Contact / Support
               </a>
             </nav>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -288,11 +287,11 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-              Explore Our Collections
+              Our Collection
             </h2>
           </AnimatedSection>
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-3 gap-6"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -302,23 +301,12 @@ const Landing = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                whileHover="hover"
+                whileHover={{ scale: 1.05 }}
               >
-                <Card className="relative overflow-hidden group cursor-pointer h-64 border-0">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6"
-                    initial={{ opacity: 0.7 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    <h3 className="text-white font-bold text-2xl transform transition-transform duration-300 group-hover:translate-y-[-8px]">
-                      {category.name}
-                    </h3>
-                  </motion.div>
+                <Card className="relative overflow-hidden group cursor-pointer h-48 border-2 hover:border-primary/50 bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center transition-all duration-300 hover:shadow-2xl">
+                  <h3 className="font-bold text-xl md:text-2xl text-center px-4 group-hover:scale-110 transition-transform duration-300">
+                    {category}
+                  </h3>
                 </Card>
               </motion.div>
             ))}
@@ -404,40 +392,6 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-              Our Collection
-            </h2>
-          </AnimatedSection>
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {galleryImages.map((image, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                whileHover={{ scale: 1.05, zIndex: 10 }}
-                className="relative overflow-hidden rounded-xl shadow-lg cursor-pointer"
-                style={{ height: index % 3 === 0 ? '300px' : '250px' }}
-              >
-                <img
-                  src={image}
-                  alt={`Gallery ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Testimonials Section */}
       <section className="py-24">
