@@ -462,6 +462,112 @@ export const demoProducts: Product[] = [
       sizes: ['Free Size']
     },
   },
+  {
+    id: '24',
+    name: 'LAMBORGHINI',
+    price: 2499,
+    originalPrice: 2999,
+    image: getCategoryImage('watches', 46),
+    images: getCategoryImages('watches', [46]),
+    imageIndices: [46],
+    category: 'watches',
+    description: 'LAMBORGHINI GREY-Analog, Limited Stock',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: [''],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '25',
+    name: 'Richard Mille',
+    price: 2499,
+    originalPrice: 2999,
+    image: getCategoryImage('watches', 47),
+    images: getCategoryImages('watches', [47, 48]),
+    imageIndices: [47],
+    category: 'watches',
+    description: 'LAMBORGHINI GREY-Analog, Limited Stock',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Red-Black'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '26',
+    name: 'Rolex',
+    price: 2999,
+    originalPrice: 3999,
+    image: getCategoryImage('watches', 49),
+    images: getCategoryImages('watches', [49, 50]),
+    imageIndices: [49, 50],
+    category: 'watches',
+    description: 'Rolex oyster perpetual skeleton',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Silver & Black'],
+      sizes: ['Free Size']
+    },
+  },
+  {
+    id: '27',
+    name: 'Patek Phillipe',
+    price: 2499,
+    originalPrice: 2799,
+    image: getCategoryImage('watches', 51),
+    images: getCategoryImages('watches', [51]),
+    imageIndices: [51],
+    category: 'watches',
+    description: 'PATEK PHILIPPE AUTO MOVEMENT',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['Brown Belt with Silver'],
+      sizes: ['Free Size']
+    },
+  },
+
+//yaha tak watches ayi absi clothes ek 30 add karna down side
+//clothing down
+{
+    id: '28',
+    name: 'Over Sized Tshirt',
+    price: 1499,
+    originalPrice: 1799,
+    image: getCategoryImage('clothing', 1),
+    images: getCategoryImages('clothing', [1, 2, 3, 4, 5]),
+    imageIndices: [1],
+    category: 'clothing',
+    description: 'Over-Sized T-shirts',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: true,
+    isFeatured: true,
+    variants: {
+      colors: ['White, Black, Red, Brown, Gray'],
+      sizes: ['M, L, XL']
+    },
+  },
+
+
+
 
 ];
 
