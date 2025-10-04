@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Twitter, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -20,13 +20,28 @@ const Footer = () => {
               Quality products with exceptional service.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Facebook className="h-4 w-4" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8"
+                onClick={() => window.open('https://wa.me/9885522948', '_blank')}
+              >
+                <MessageCircle className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8"
+                onClick={() => window.open('https://instagram.com', '_blank')}
+              >
                 <Instagram className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8"
+                onClick={() => window.open('https://twitter.com', '_blank')}
+              >
                 <Twitter className="h-4 w-4" />
               </Button>
             </div>

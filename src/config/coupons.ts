@@ -27,14 +27,4 @@ export const DEFAULT_COUPONS: CouponConfig[] = [
     usageLimit: 100,
     usageCount: 0,
   },
-  {
-    id: '2',
-    code: 'SAVE15',
-    description: '15% Off Your Order',
-    type: 'percentage',
-    value: 15,
-    isActive: true,
-    usageLimit: 50,
-    usageCount: 0,
-  },
 ];

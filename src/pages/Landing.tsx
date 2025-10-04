@@ -69,14 +69,14 @@ const Landing = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   const categories = [
-    'Watches',
-    'Shirts', 
-    'Pants',
-    'Tracks',
-    'Shoes',
-    'Premium Collection',
-    'Slides/Slippers',
-    'Analog Watches',
+    { name: 'Watches', image: watch17 },
+    { name: 'Shirts', image: casualShirt },
+    { name: 'Pants', image: casualShirt },
+    { name: 'Tracks', image: casualShirt },
+    { name: 'Shoes', image: shoe1 },
+    { name: 'Premium Collection', image: watch15 },
+    { name: 'Slides/Slippers', image: shoe2 },
+    { name: 'Analog Watches', image: watch20 },
   ];
 
   const features = [
@@ -302,12 +302,19 @@ const Landing = () => {
                 key={index}
                 variants={fadeInUp}
                 whileHover={{ scale: 1.05 }}
+                className="flex flex-col"
               >
-                <Card className="relative overflow-hidden group cursor-pointer h-48 border-2 hover:border-primary/50 bg-gradient-to-br from-primary/10 to-secondary/30 flex items-center justify-center transition-all duration-300 hover:shadow-2xl">
-                  <h3 className="font-bold text-xl md:text-2xl text-center px-4 group-hover:scale-110 transition-transform duration-300">
-                    {category}
-                  </h3>
+                <Card className="relative overflow-hidden group cursor-pointer h-56 border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Card>
+                <h3 className="font-semibold text-lg text-center mt-3 px-2">
+                  {category.name}
+                </h3>
               </motion.div>
             ))}
           </motion.div>

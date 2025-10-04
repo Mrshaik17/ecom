@@ -61,7 +61,10 @@ const UserAccountDropdown = () => {
           <div className="text-sm">My Account</div>
         </DropdownMenuItem>
         
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem 
+          className="cursor-pointer"
+          onClick={() => window.open('https://wa.me/9885522948', '_blank')}
+        >
           <HelpCircle className="h-4 w-4 mr-2" />
           Help & Support
         </DropdownMenuItem>
