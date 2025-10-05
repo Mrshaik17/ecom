@@ -20,6 +20,11 @@ import shoe3 from '@/assets/shoes/3.jpg';
 import casualShirt from '@/assets/clothing/casual-shirt-1.jpg';
 import earbuds from '@/assets/gadgets/wireless-earbuds-1.jpg';
 import { watch15, watch17, watch20 } from '@/assets/watches';
+import { clothingImages } from '@/assets/clothing';
+import { shoeImages } from '@/assets/shoes';
+import { watchImages } from '@/assets/watches';
+import { gadgetImages } from '@/assets/gadgets';
+import { premiumImages } from '@/assets/premium';
 
 // Animation variants
 const fadeInUp = {
@@ -69,14 +74,20 @@ const Landing = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   const categories = [
-    { name: 'Watches', image: watch17 },
-    { name: 'Shirts', image: casualShirt },
-    { name: 'Pants', image: casualShirt },
-    { name: 'Tracks', image: casualShirt },
-    { name: 'Shoes', image: shoe1 },
-    { name: 'Premium Collection', image: watch15 },
-    { name: 'Slides/Slippers', image: shoe2 },
-    { name: 'Analog Watches', image: watch20 },
+    { name: 'Watches', image: watchImages[0] },
+    { name: 'Shirts', image: clothingImages[0] },
+    { name: 'Pants', image: clothingImages[1] },
+    { name: 'Tracks', image: clothingImages[2] },
+    { name: 'Shoes', image: shoeImages[0] },
+    { name: 'Premium Collection', image: premiumImages[0] },
+    { name: 'Slides/Slippers', image: shoeImages[1] },
+    { name: 'Analog Watches', image: watchImages[1] },
+    { name: 'Gadgets', image: gadgetImages[0] },
+    { name: 'Buds', image: gadgetImages[0] },
+    { name: 'Combo Offers', image: premiumImages[1] },
+    { name: 'Coming Soon', image: null },
+    { name: 'Coming Soon', image: null },
+    { name: 'Coming Soon', image: null },
   ];
 
   const features = [
@@ -162,30 +173,30 @@ const Landing = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <motion.div 
-              className="bg-gradient-hero text-primary-foreground px-3 py-1.5 rounded-lg font-bold text-xl"
+              className="bg-gradient-hero text-primary-foreground px-2 md:px-3 py-1 md:py-1.5 rounded-lg font-bold text-base md:text-xl"
               whileHover={{ scale: 1.05 }}
             >
               House Of Styles
             </motion.div>
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="#hero" className="text-muted-foreground hover:text-primary transition-colors">
+            <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
+              <a href="#hero" className="text-muted-foreground hover:text-primary transition-colors text-sm lg:text-base">
                 Home
               </a>
-              <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#categories" className="text-muted-foreground hover:text-primary transition-colors text-sm lg:text-base">
                 Shop / Categories
               </a>
-              <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#about" className="text-muted-foreground hover:text-primary transition-colors text-sm lg:text-base">
                 About Us
               </a>
-              <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors text-sm lg:text-base">
                 Contact / Support
               </a>
             </nav>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-gradient-button hover:bg-primary-hover" onClick={handleGetStarted}>
+              <Button className="bg-gradient-button hover:bg-primary-hover text-sm md:text-base px-3 md:px-4 py-2" onClick={handleGetStarted}>
                 Get Started
               </Button>
             </motion.div>
@@ -194,14 +205,14 @@ const Landing = () => {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary">
+      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary">
         <motion.div 
           className="absolute inset-0 bg-gradient-hero opacity-10"
           style={{ opacity, scale }}
         />
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h1 
-            className="text-5xl md:text-7xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-white"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-white px-4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -209,7 +220,7 @@ const Landing = () => {
             House Of Styles
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-3xl text-gray-foreground mb-12 max-w-3xl mx-auto"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-foreground mb-8 md:mb-12 max-w-3xl mx-auto px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -223,10 +234,10 @@ const Landing = () => {
           >
             <Button
               size="lg"
-              className="bg-gradient-button hover:bg-primary-hover text-lg px-12 py-7 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300"
+              className="bg-gradient-button hover:bg-primary-hover text-base md:text-lg px-8 md:px-12 py-5 md:py-7 rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300"
               onClick={handleGetStarted}
             >
-              <Zap className="mr-2 h-6 w-6" />
+              <Zap className="mr-2 h-5 w-5 md:h-6 md:w-6" />
               Get Started
             </Button>
           </motion.div>
@@ -246,15 +257,15 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24">
+      <section id="features" className="py-12 md:py-24">
         <div className="container mx-auto px-4">
           <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-16">
               Why Choose Us
             </h2>
           </AnimatedSection>
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -262,17 +273,17 @@ const Landing = () => {
           >
             {features.map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="p-8 h-full hover:shadow-2xl transition-all duration-300 group cursor-pointer border-2 hover:border-primary/50">
+                <Card className="p-4 md:p-8 h-full hover:shadow-2xl transition-all duration-300 group cursor-pointer border-2 hover:border-primary/50">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <feature.icon className="h-14 w-14 mb-6 text-primary group-hover:text-primary/80 transition-colors" />
+                    <feature.icon className="h-10 w-10 md:h-14 md:w-14 mb-4 md:mb-6 text-primary group-hover:text-primary/80 transition-colors" />
                   </motion.div>
-                  <h3 className="font-semibold text-xl mb-3 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-lg md:text-xl mb-2 md:mb-3 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
                 </Card>
@@ -283,15 +294,15 @@ const Landing = () => {
       </section>
 
       {/* Categories Section */}
-      <section id="categories" className="py-24 bg-secondary/30">
+      <section id="categories" className="py-12 md:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-16">
               Our Collection
             </h2>
           </AnimatedSection>
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -299,20 +310,28 @@ const Landing = () => {
           >
             {categories.map((category, index) => (
               <motion.div
-                key={index}
+                key={`${category.name}-${index}`}
                 variants={fadeInUp}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: category.image ? 1.05 : 1 }}
                 className="flex flex-col"
               >
-                <Card className="relative overflow-hidden group cursor-pointer h-56 border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Card className={`relative overflow-hidden group cursor-pointer h-48 sm:h-56 md:h-64 ${category.image ? 'border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl' : 'border-2 border-dashed border-muted-foreground/30'}`}>
+                  {category.image ? (
+                    <>
+                      <img
+                        src={category.image}
+                        alt={category.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-secondary/10">
+                      <span className="text-4xl md:text-5xl lg:text-6xl text-muted-foreground/20">?</span>
+                    </div>
+                  )}
                 </Card>
-                <h3 className="font-semibold text-lg text-center mt-3 px-2">
+                <h3 className={`font-semibold text-base md:text-lg text-center mt-3 px-2 ${!category.image && 'text-muted-foreground'}`}>
                   {category.name}
                 </h3>
               </motion.div>
@@ -322,7 +341,7 @@ const Landing = () => {
       </section>
 
       {/* Parallax Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-16 md:py-32 overflow-hidden">
         <motion.div 
           className="absolute inset-0 bg-gradient-hero"
           style={{ 
@@ -331,7 +350,7 @@ const Landing = () => {
         />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <motion.h2 
-            className="text-4xl md:text-6xl font-bold text-white mb-6"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4 md:mb-6 px-4"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -340,7 +359,7 @@ const Landing = () => {
             Shopping Made Simple, Smart & Secure
           </motion.h2>
           <motion.p
-            className="text-xl text-white/90 max-w-2xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

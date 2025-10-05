@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useProducts } from '@/context/ProductContext';
 import { useCart } from '@/context/CartContext';
 import { useCoupon } from '@/context/CouponContext';
@@ -20,6 +21,8 @@ const ProductDetail = () => {
   const { appliedCoupon, calculateDiscount } = useCoupon();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedColor, setSelectedColor] = useState<string>('');
 
   const product = products.find(p => p.id === productId);
 
@@ -43,7 +46,17 @@ const ProductDetail = () => {
   };
 
   const handleOrderWhatsApp = () => {
-    const phoneNumber = '9885522948'; // Replace with your WhatsApp number
+    // Validate selections
+    if (product.variants?.sizes && !selectedSize) {
+      toast.error('Please select a size');
+      return;
+    }
+    if (product.variants?.colors && !selectedColor) {
+      toast.error('Please select a color');
+      return;
+    }
+
+    const phoneNumber = '9885522948';
     const { discount, finalTotal } = calculateDiscount(product.price);
     
     let message = `🛒 *ORDER REQUEST FROM HOUSE OF STYLES*\n\n`;
@@ -51,6 +64,13 @@ const ProductDetail = () => {
     message += `Product: ${product.name}\n`;
     message += `Category: ${product.category}\n`;
     message += `Original Price: ₹${product.price.toLocaleString('en-IN')}\n`;
+    
+    if (selectedSize) {
+      message += `Selected Size: ${selectedSize}\n`;
+    }
+    if (selectedColor) {
+      message += `Selected Color: ${selectedColor}\n`;
+    }
     
     if (appliedCoupon && discount > 0) {
       message += `\n🎟️ *COUPON APPLIED:*\n`;
@@ -60,13 +80,6 @@ const ProductDetail = () => {
       message += `Final Price: ₹${finalTotal.toLocaleString('en-IN')}\n`;
     } else {
       message += `Price: ₹${product.price.toLocaleString('en-IN')}\n`;
-    }
-    
-    if (product.variants?.colors) {
-      message += `Available Colors: ${product.variants.colors.join(', ')}\n`;
-    }
-    if (product.variants?.sizes) {
-      message += `Available Sizes: ${product.variants.sizes.join(', ')}\n`;
     }
     
     message += `\n✅ Please confirm this order and provide delivery details.`;
@@ -194,6 +207,49 @@ const ProductDetail = () => {
                 {product.description}
               </p>
             </div>
+
+            {/* Variants Selection */}
+            {(product.variants?.sizes || product.variants?.colors) && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Select Options</h3>
+                
+                {product.variants?.sizes && (
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Size *</label>
+                    <Select value={selectedSize} onValueChange={setSelectedSize}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Choose a size" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {product.variants.sizes.map((size) => (
+                          <SelectItem key={size} value={size}>
+                            {size}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {product.variants?.colors && (
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Color *</label>
+                    <Select value={selectedColor} onValueChange={setSelectedColor}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Choose a color" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {product.variants.colors.map((color) => (
+                          <SelectItem key={color} value={color}>
+                            {color}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Coupon Section */}
             <div>
