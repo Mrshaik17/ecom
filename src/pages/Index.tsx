@@ -168,35 +168,268 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Our Collection Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Shop by Category</h2>
+            <h2 className="text-3xl font-bold mb-4">Our Collection</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Explore our carefully curated collections of premium imported products for men
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-            {categories.map((category) => (
-              <Link 
-                key={category.id} 
-                to={`/category/${category.id}`}
-                className="group"
-              >
-                <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1">
-                  <CardContent className="p-6 text-center">
-                    <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {category.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+            {/* Watches */}
+            <Link to="/category/watches" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" 
+                    alt="Watches" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Watches
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Shirts */}
+            <Link to="/category/clothing" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c" 
+                    alt="Shirts" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Shirts
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Pants */}
+            <div className="group cursor-pointer">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80" 
+                    alt="Pants" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Pants
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Tracks */}
+            <div className="group cursor-pointer">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1517438476312-10d79c077509" 
+                    alt="Tracks" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Tracks
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Shoes */}
+            <Link to="/category/shoes" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2" 
+                    alt="Shoes" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Shoes
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Premium Collection */}
+            <Link to="/category/premium" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd" 
+                    alt="Premium Collection" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Premium Collection
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Slides/Slippers */}
+            <div className="group cursor-pointer">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1603487742131-4160ec999306" 
+                    alt="Slides/Slippers" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Slides/Slippers
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Analog Watches */}
+            <Link to="/category/watches" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1533139142608-ab3e3f3b0b4d" 
+                    alt="Analog Watches" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Analog Watches
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Gadgets */}
+            <Link to="/category/gadgets" className="group">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137" 
+                    alt="Gadgets" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Gadgets
+                  </h3>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Buds */}
+            <div className="group cursor-pointer">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df" 
+                    alt="Buds" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Buds
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Combo Offers */}
+            <div className="group cursor-pointer">
+              <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <img 
+                    src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a" 
+                    alt="Combo Offers" 
+                    className="w-full h-full object-cover rounded"
+                  />
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base group-hover:text-primary transition-colors">
+                    Combo Offers
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Coming Soon 1 */}
+            <div className="group cursor-not-allowed">
+              <Card className="border-0 shadow-md overflow-hidden opacity-60">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-muted-foreground mb-2">?</p>
+                    <p className="text-xs text-muted-foreground">Coming Soon</p>
+                    <p className="text-sm font-semibold mt-2">₹0/-</p>
+                  </div>
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base text-muted-foreground">
+                    Coming Soon
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Coming Soon 2 */}
+            <div className="group cursor-not-allowed">
+              <Card className="border-0 shadow-md overflow-hidden opacity-60">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-muted-foreground mb-2">?</p>
+                    <p className="text-xs text-muted-foreground">Coming Soon</p>
+                    <p className="text-sm font-semibold mt-2">₹0/-</p>
+                  </div>
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base text-muted-foreground">
+                    Coming Soon
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Coming Soon 3 */}
+            <div className="group cursor-not-allowed">
+              <Card className="border-0 shadow-md overflow-hidden opacity-60">
+                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-muted-foreground mb-2">?</p>
+                    <p className="text-xs text-muted-foreground">Coming Soon</p>
+                    <p className="text-sm font-semibold mt-2">₹0/-</p>
+                  </div>
+                </div>
+                <CardContent className="p-3 md:p-4 text-center">
+                  <h3 className="font-semibold text-sm md:text-base text-muted-foreground">
+                    Coming Soon
+                  </h3>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
