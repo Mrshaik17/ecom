@@ -577,4 +577,6 @@ export const categories = [
   { id: 'clothing', name: 'Clothing', description: 'Stylish apparel for the modern man' },
   { id: 'gadgets', name: 'Gadgets', description: 'Latest tech and electronic accessories' },
   { id: 'premium', name: 'Premium', description: 'Exclusive luxury collections' },
+  { id: 'slides', name: 'Slides/Slippers', description: 'Comfortable slides and slippers' },
+  { id: 'combo', name: 'Combo Offers', description: 'Amazing combo deals and packages' },
 ];

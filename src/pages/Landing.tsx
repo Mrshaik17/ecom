@@ -74,20 +74,18 @@ const Landing = () => {
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   const categories = [
-    { name: 'Watches', image: watchImages[0] },
-    { name: 'Shirts', image: clothingImages[0] },
-    { name: 'Pants', image: clothingImages[1] },
-    { name: 'Tracks', image: clothingImages[2] },
-    { name: 'Shoes', image: shoeImages[0] },
-    { name: 'Premium Collection', image: premiumImages[0] },
-    { name: 'Slides/Slippers', image: shoeImages[1] },
-    { name: 'Analog Watches', image: watchImages[1] },
-    { name: 'Gadgets', image: gadgetImages[0] },
-    { name: 'Buds', image: gadgetImages[0] },
-    { name: 'Combo Offers', image: premiumImages[1] },
-    { name: 'Coming Soon', image: null },
-    { name: 'Coming Soon', image: null },
-    { name: 'Coming Soon', image: null },
+    { name: 'Watches', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30' },
+    { name: 'Shirts', image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c' },
+    { name: 'Pants', image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80' },
+    { name: 'Tracks', image: 'https://images.unsplash.com/photo-1517438476312-10d79c077509' },
+    { name: 'Shoes', image: 'https://images.unsplash.com/photo-1460353581641-37baddab0fa2' },
+    { name: 'Premium Collection', image: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd' },
+    { name: 'Slides/Slippers', image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306' },
+    { name: 'Gadgets', image: 'https://images.unsplash.com/photo-1625772452859-1c03d5bf1137' },
+    { name: 'Combo Offers', image: 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a' },
+    { name: 'Coming Soon', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d' },
+    { name: 'Coming Soon', image: 'https://images.unsplash.com/photo-1513094735237-8f2714d57c13' },
+    { name: 'Coming Soon', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04' },
   ];
 
   const features = [
@@ -331,7 +329,7 @@ const Landing = () => {
                     </div>
                   )}
                 </Card>
-                <h3 className={`font-semibold text-base md:text-lg text-center mt-3 px-2 ${!category.image && 'text-muted-foreground'}`}>
+                <h3 className={`font-semibold text-sm md:text-base lg:text-lg text-center mt-3 px-2 ${!category.image && 'text-muted-foreground'}`}>
                   {category.name}
                 </h3>
               </motion.div>

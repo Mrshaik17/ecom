@@ -27,4 +27,13 @@ export const DEFAULT_COUPONS: CouponConfig[] = [
     usageLimit: 100,
     usageCount: 0,
   },
+  {
+    id: '2',
+    code: 'FREESHIP',
+    description: 'Free Shipping on All Products',
+    type: 'free_shipping',
+    value: 0,
+    isActive: true,
+    usageCount: 0,
+  },
 ];
