@@ -50,6 +50,12 @@ import watch49 from './49.jpg';
 import watch50 from './50.jpg';
 import watch51 from './51.jpg';
 import watch52 from './52.jpg';
+import watch53 from './53.jpg';
+import watch54 from './54.jpg';
+import watch55 from './55.jpg';
+import watch56 from './56.jpg';
+import watch57 from './57.jpg';
+import watch58 from './58.jpg';
 
 
 
@@ -105,7 +111,13 @@ export const watchImages = [
   watch49,
   watch50,
   watch51,
-  watch52
+  watch52,
+  watch53,
+  watch54,
+  watch55,
+  watch56,
+  watch57,
+  watch58
  
 
   // Add more watch images here as you import them
@@ -119,4 +131,4 @@ export { watch1, watch2, watch3, watch4, watch5, watch6, watch7, watch8, watch9,
 export { watch16, watch17, watch18, watch19, watch20, watch21, watch22, watch23, watch24 };
 export { watch25, watch26, watch27, watch28, watch29, watch30, watch31, watch32, watch33 };
 export { watch34, watch35, watch36, watch37, watch38, watch39, watch40, watch41, watch42, watch43, watch44, watch45, watch46, watch47 };
-export { watch48, watch49, watch50, watch51, watch52 };
+export { watch48, watch49, watch50, watch51, watch52, watch53, watch54, watch55, watch56, watch57, watch58 };
