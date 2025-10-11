@@ -26,6 +26,20 @@ const TermsOfService = () => {
               House Of Styles specializes in premium imported watches, shoes, clothing, and gadgets for men. We strive to provide 
               accurate product descriptions and images, but we do not guarantee that all details are completely accurate.
             </p>
+            <div className="bg-muted/50 border border-muted-foreground/20 rounded-lg p-4 mb-4">
+              <h3 className="font-semibold mb-2">🏷️ Product Quality & Authenticity</h3>
+              <p className="mb-2">
+                At House Of Styles, we pride ourselves on offering diverse product ranges to meet various customer preferences and budgets:
+              </p>
+              <ul className="list-disc pl-6 text-sm space-y-1">
+                <li><strong>Master Copy Products:</strong> High-quality replicas that closely resemble premium branded items at affordable prices. These products offer excellent value and aesthetic appeal while maintaining good quality standards.</li>
+                <li><strong>Copy Version Products:</strong> Budget-friendly alternatives inspired by popular brands, providing style-conscious options for value seekers.</li>
+                <li><strong>Original Branded Products:</strong> 100% authentic products from renowned international and national brands, complete with proper documentation, warranty, and brand certification.</li>
+              </ul>
+              <p className="text-xs mt-2 text-muted-foreground">
+                <strong>Note:</strong> Each product listing clearly indicates its category. We are transparent about product authenticity and encourage customers to review product descriptions carefully before purchasing.
+              </p>
+            </div>
           </section>
 
           <section>

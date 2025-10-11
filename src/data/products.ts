@@ -585,10 +585,63 @@ export const demoProducts: Product[] = [
       sizes: ['M' , 'L', 'XL']
     },
   },
-
-
-
-
+  {
+    id: '30',
+    name: 'Premium Slides',
+    price: 0,
+    originalPrice: 0,
+    image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306',
+    images: ['https://images.unsplash.com/photo-1603487742131-4160ec999306'],
+    category: 'slides',
+    description: 'Coming Soon - Comfortable premium slides and slippers',
+    rating: 0,
+    inStock: false,
+    isNew: false,
+    isSale: false,
+    isFeatured: false,
+    variants: {
+      colors: ['Black', 'White', 'Grey'],
+      sizes: ['7', '8', '9', '10', '11']
+    },
+  },
+  {
+    id: '31',
+    name: 'Smart Gadgets',
+    price: 0,
+    originalPrice: 0,
+    image: 'https://images.unsplash.com/photo-1625772452859-1c03d5bf1137',
+    images: ['https://images.unsplash.com/photo-1625772452859-1c03d5bf1137'],
+    category: 'gadgets',
+    description: 'Coming Soon - Latest tech gadgets and accessories',
+    rating: 0,
+    inStock: false,
+    isNew: false,
+    isSale: false,
+    isFeatured: false,
+    variants: {
+      colors: ['Black', 'Silver'],
+      sizes: []
+    },
+  },
+  {
+    id: '32',
+    name: 'Special Combo Offer',
+    price: 0,
+    originalPrice: 0,
+    image: 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a',
+    images: ['https://images.unsplash.com/photo-1607083206869-4c7672e72a8a'],
+    category: 'combo',
+    description: 'Coming Soon - Amazing combo deals with huge discounts',
+    rating: 0,
+    inStock: false,
+    isNew: false,
+    isSale: false,
+    isFeatured: false,
+    variants: {
+      colors: [],
+      sizes: []
+    },
+  },
 ];
 
 export const categories = [

@@ -401,7 +401,7 @@ const Index = () => {
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {featuredProducts.slice(0, 8).map((product) => (
               <ProductCard
                 key={product.id}
@@ -423,7 +423,7 @@ const Index = () => {
               <p className="text-sm md:text-base text-muted-foreground">Exclusive luxury items for the discerning gentleman</p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {premiumProducts.map((product) => (
               <ProductCard
                 key={product.id}

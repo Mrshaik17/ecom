@@ -203,7 +203,7 @@ const Landing = () => {
       </motion.header>
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary">
+      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary" onClick={handleGetStarted}>
         <motion.div 
           className="absolute inset-0 bg-gradient-hero opacity-10"
           style={{ opacity, scale }}
@@ -255,7 +255,7 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-12 md:py-24">
+      <section id="features" className="py-12 md:py-24" onClick={handleGetStarted}>
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-16">
@@ -292,7 +292,7 @@ const Landing = () => {
       </section>
 
       {/* Categories Section */}
-      <section id="categories" className="py-12 md:py-24 bg-secondary/30">
+      <section id="categories" className="py-12 md:py-24 bg-secondary/30" onClick={handleGetStarted}>
         <div className="container mx-auto px-4">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-16">
