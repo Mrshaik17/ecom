@@ -565,6 +565,26 @@ export const demoProducts: Product[] = [
       sizes: ['M, L, XL']
     },
   },
+  {
+    id: '29',
+    name: 'Zara Shirts',
+    price: 1099,
+    originalPrice: 1499,
+    image: getCategoryImage('clothing', 6),
+    images: getCategoryImages('clothing', [6, 7, 8]),
+    imageIndices: [6],
+    category: 'clothing',
+    description: 'Zara Shirt-Double Pocket, Premium Quality-RFD Cotton Shirt',
+    rating: 4.3,
+    inStock: true,
+    isNew: true,
+    isSale: false,
+    isFeatured: true,
+    variants: {
+      colors: ['White', 'Blue'],
+      sizes: ['M' , 'L', 'XL']
+    },
+  },
 
 
 
