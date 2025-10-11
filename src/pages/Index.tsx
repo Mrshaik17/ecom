@@ -104,16 +104,17 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            {/* Video/Advertisement Section */}
-            <div className="relative bg-gradient-hero rounded-xl overflow-hidden aspect-video">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Watch Our Latest Collection"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            {/* Branded Section */}
+            <div className="relative bg-gradient-hero rounded-xl overflow-hidden aspect-video flex items-center justify-center p-8">
+              <div className="text-center text-primary-foreground">
+                <h3 className="text-3xl md:text-5xl font-display font-bold mb-4">House Of Styles</h3>
+                <p className="text-base md:text-xl text-primary-light/90">
+                  Where Quality Meets Elegance
+                </p>
+                <p className="text-sm md:text-base text-primary-light/80 mt-3">
+                  Premium Imported Collections for the Modern Gentleman
+                </p>
+              </div>
             </div>
             
             {/* Coupon Codes */}
@@ -166,11 +167,11 @@ const Index = () => {
             {/* Watches */}
             <Link to="/category/watches" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" 
                     alt="Watches" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -184,11 +185,11 @@ const Index = () => {
             {/* Shirts */}
             <Link to="/category/clothing" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c" 
                     alt="Shirts" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -202,11 +203,11 @@ const Index = () => {
             {/* Pants */}
             <Link to="/category/clothing" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80" 
                     alt="Pants" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -220,11 +221,11 @@ const Index = () => {
             {/* Tracks */}
             <Link to="/category/clothing" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1517438476312-10d79c077509" 
                     alt="Tracks" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -238,11 +239,11 @@ const Index = () => {
             {/* Shoes */}
             <Link to="/category/shoes" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2" 
                     alt="Shoes" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -256,11 +257,11 @@ const Index = () => {
             {/* Premium Collection */}
             <Link to="/category/premium" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd" 
                     alt="Premium Collection" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -274,11 +275,11 @@ const Index = () => {
             {/* Slides/Slippers */}
             <Link to="/category/slides" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1603487742131-4160ec999306" 
                     alt="Slides/Slippers" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -292,11 +293,11 @@ const Index = () => {
             {/* Gadgets */}
             <Link to="/category/gadgets" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137" 
                     alt="Gadgets" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
@@ -310,11 +311,11 @@ const Index = () => {
             {/* Combo Offers */}
             <Link to="/category/combo" className="group">
               <Card className="border-0 shadow-md hover:shadow-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                <div className="aspect-square bg-secondary/50 flex items-center justify-center p-2">
+                <div className="aspect-square bg-secondary/50 overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1607083206869-4c7672e72a8a" 
                     alt="Combo Offers" 
-                    className="w-full h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-2 md:p-3 text-center">
